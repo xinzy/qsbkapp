@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">糗事百科</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="nav_suggest">专享</string>
+    <string name="nav_video">视频</string>
+    <string name="nav_image">图片</string>
+    <string name="nav_text">文字</string>
+    <string name="nav_day">精华</string>
+    <string name="nav_system">系统</string>
+    <string name="nav_setting">设置</string>
+
+    <string name="action_settings">设置</string>
+    <string name="developer">shaozengy@gmail.com</string>
+
+</resources>
