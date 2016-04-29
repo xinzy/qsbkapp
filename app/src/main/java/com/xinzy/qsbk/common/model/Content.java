@@ -26,6 +26,9 @@ public class Content
     private int shareCount;
     private Type type;
 
+    private ImageSize smallSize;
+    private ImageSize mediumSize;
+
     // 以下是视频类型的数据
     private String highUrl;
     private String lowUrl;
@@ -50,6 +53,15 @@ public class Content
         commentCount = json.optInt("comments_count");
         shareCount = json.optInt("share_count");
         type = Type.from(json.optString("type"));
+
+        if (! Utils.isEmpty(image))
+        {
+            JSONObject imgJson = json.optJSONObject("image_size");
+            if (imgJson != null)
+            {
+
+            }
+        }
 
         if (format == Format.Video)
         {
@@ -269,6 +281,26 @@ public class Content
     public void setLoop(int loop)
     {
         this.loop = loop;
+    }
+
+    public ImageSize getSmallSize()
+    {
+        return smallSize;
+    }
+
+    public void setSmallSize(ImageSize smallSize)
+    {
+        this.smallSize = smallSize;
+    }
+
+    public ImageSize getMediumSize()
+    {
+        return mediumSize;
+    }
+
+    public void setMediumSize(ImageSize mediumSize)
+    {
+        this.mediumSize = mediumSize;
     }
 
     public static enum Type

@@ -15,10 +15,18 @@ public class ContentPresenter implements IContentPresenter
     public ContentPresenter(@NonNull IContentView view)
     {
         mContentView = view;
+        mContentView.setPresenter(this);
     }
 
     @Override
     public void start()
     {
+    }
+
+    @Override
+    public void loading(int page)
+    {
+        mContentView.showLoading(true);
+
     }
 }

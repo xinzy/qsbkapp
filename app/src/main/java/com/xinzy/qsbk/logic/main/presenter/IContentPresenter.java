@@ -8,4 +8,6 @@ import com.xinzy.qsbk.common.base.IBasePresenter;
 public interface IContentPresenter extends IBasePresenter
 {
 
+    void loading(int page);
+
 }

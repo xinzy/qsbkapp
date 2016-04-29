@@ -14,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.xinzy.qsbk.R;
+import com.xinzy.qsbk.logic.main.fragment.ContentFragment;
+import com.xinzy.qsbk.logic.main.presenter.ContentPresenter;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
@@ -22,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FloatingActionButton mFloatingActionButton;
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
+
+    private ContentPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -48,6 +52,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
+
+        ContentFragment contentFragment = ContentFragment.newInstance();
+        mPresenter = new ContentPresenter(contentFragment);
+
+        getSupportFragmentManager().beginTransaction().add(R.id.content, contentFragment, "CONTENT").commit();
     }
 
     @Override
@@ -108,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         case R.id.nav_setting:      //设置
             break;
         }
-
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
