@@ -15,4 +15,6 @@
     <string name="action_settings">设置</string>
     <string name="developer">shaozengy@gmail.com</string>
 
+    <string name="content_data">顶 %1$S . 踩 %2$s . 评论 %3$s . 分享 %4$s</string>
+
 </resources>

@@ -57,6 +57,8 @@ public class ContentFragment extends AbsBaseFragment implements SwipeRefreshLayo
         mListView = (ListView) findViewById(R.id.content_listview);
         mContentAdapter = new ContentAdapter();
         mListView.setAdapter(mContentAdapter);
+
+        mContentPresenter.loading(1);
     }
 
     @Override
@@ -75,6 +77,12 @@ public class ContentFragment extends AbsBaseFragment implements SwipeRefreshLayo
     public void showDataAfterLoad(List<Content> contents)
     {
 
+    }
+
+    @Override
+    public String contentListApi()
+    {
+        return "http://m2.qiushibaike.com/article/list/suggest?page=1&type=refresh&count=30&rqcnt=66&r=cc7b51d71461740419960";
     }
 
     @Override

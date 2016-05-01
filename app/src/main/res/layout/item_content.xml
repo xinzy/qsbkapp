@@ -6,11 +6,9 @@
               android:orientation="vertical"
               android:padding="@dimen/activity_horizontal_margin">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
         android:paddingBottom="12dp"
         android:paddingTop="12dp">
 
@@ -21,27 +19,31 @@
             android:src="@mipmap/default_avatar"/>
 
         <TextView
-            android:id="@+id/username_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_weight="1"
-            android:textColor="#555555"
-            android:textScaleX="18sp"
-            android:textStyle="bold"
-            tools:text="用户名"/>
-
-        <TextView
             android:id="@+id/state_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_marginStart="16dp"
+            android:layout_centerVertical="true"
             android:drawableLeft="@mipmap/state_fresh"
             android:drawablePadding="4dp"
             android:textColor="#969696"
             android:textSize="12sp"
             tools:text="新鲜"/>
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/username_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/state_text"
+            android:layout_toEndOf="@id/avatar_img"
+            android:textColor="#555555"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="用户名"/>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/content_text"
@@ -62,8 +64,50 @@
             android:id="@+id/content_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:background="@android:color/transparent"/>
 
     </FrameLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        tools:text="@string/content_data"
+        android:textSize="14sp"
+        android:textColor="#9C9C9C"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_support_sel" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_unsupport_sel" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/operation_comments" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/operation_share" />
+    </LinearLayout>
 </LinearLayout>

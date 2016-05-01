@@ -15,4 +15,6 @@ public interface IContentView extends IBaseView<IContentPresenter>
     void showLoading(boolean isShow);
 
     void showDataAfterLoad(List<Content> contents);
+
+    String contentListApi();
 }

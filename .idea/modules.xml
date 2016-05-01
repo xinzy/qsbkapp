@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Qsbk.iml" filepath="$PROJECT_DIR$/Qsbk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Qsbkapp.iml" filepath="$PROJECT_DIR$/Qsbkapp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

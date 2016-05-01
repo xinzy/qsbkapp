@@ -2,6 +2,7 @@ package com.xinzy.qsbk.logic.main.adapter;
 
 import android.view.View;
 
+import com.xinzy.qsbk.R;
 import com.xinzy.qsbk.common.base.AbsListAdapter;
 import com.xinzy.qsbk.common.model.Content;
 
@@ -15,7 +16,7 @@ public class ContentAdapter extends AbsListAdapter<Content>
     @Override
     protected int getLayout(int position)
     {
-        return 0;
+        return R.layout.item_content;
     }
 
     @Override
