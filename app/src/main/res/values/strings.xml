@@ -15,6 +15,9 @@
     <string name="action_settings">设置</string>
     <string name="developer">shaozengy@gmail.com</string>
 
+    <string name="anonymous">匿名用户</string>
     <string name="content_data">顶 %1$S . 踩 %2$s . 评论 %3$s . 分享 %4$s</string>
+    <string name="type_flush">新鲜</string>
+    <string name="type_hot">热门</string>
 
 </resources>

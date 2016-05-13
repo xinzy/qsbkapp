@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.xinzy.qsbk.common.ui.ItemView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,6 +114,9 @@ public abstract class AbsListAdapter<T> extends BaseAdapter
                 mInflater = LayoutInflater.from(parent.getContext());
             }
             convertView = mInflater.inflate(getLayout(position), parent, false);
+
+            ItemView itemView = (ItemView) convertView;
+            itemView.onInit();
         }
         onSetData(convertView, position);
 

@@ -24,6 +24,6 @@ public class ContentAdapter extends AbsListAdapter<Content>
     protected void onSetData(View view, int position)
     {
         ContentItemView itemView = (ContentItemView) view;
-        itemView.setData(mData.get(position), position);
+        itemView.onSetData(mData.get(position), position);
     }
 }
