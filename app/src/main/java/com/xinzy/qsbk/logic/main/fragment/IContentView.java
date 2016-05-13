@@ -1,4 +1,4 @@
-package com.xinzy.qsbk.logic.main.view;
+package com.xinzy.qsbk.logic.main.fragment;
 
 import com.xinzy.qsbk.common.base.IBaseView;
 import com.xinzy.qsbk.common.model.Content;
@@ -14,7 +14,9 @@ public interface IContentView extends IBaseView<IContentPresenter>
 
     void showLoading(boolean isShow);
 
-    void showDataAfterLoad(List<Content> contents);
+    void loadResult(boolean success);
 
-    String contentListApi();
+    void showDataAfterLoad(List<Content> contents, boolean refresh);
+
+    String getType();
 }

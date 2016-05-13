@@ -3,7 +3,6 @@ package com.xinzy.qsbk.common.model;
 import com.xinzy.qsbk.common.api.Apis;
 import com.xinzy.qsbk.common.util.Utils;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -72,15 +71,9 @@ public class Content
         }
     }
 
-    public static Content parse(String text)
+    public static Content parse(JSONObject json)
     {
-        try
-        {
-            return new Content(new JSONObject(text));
-        } catch (JSONException e)
-        {
-            return null;
-        }
+        return new Content(json);
     }
 
     private String getImgUrl(String type)

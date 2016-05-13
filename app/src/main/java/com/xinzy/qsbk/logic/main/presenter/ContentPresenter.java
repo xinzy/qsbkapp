@@ -2,15 +2,20 @@ package com.xinzy.qsbk.logic.main.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.xinzy.okhttp3.OkHttpUtils;
+import com.xinzy.okhttp3.callback.Callback;
+import com.xinzy.qsbk.common.api.Apis;
+import com.xinzy.qsbk.common.model.Content;
 import com.xinzy.qsbk.common.util.Logger;
-import com.xinzy.qsbk.logic.main.view.IContentView;
+import com.xinzy.qsbk.logic.main.fragment.IContentView;
 
-import java.io.IOException;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.Response;
 
 /**
@@ -33,33 +38,69 @@ public class ContentPresenter implements IContentPresenter
     }
 
     @Override
-    public void loading(int page)
+    public void loading(final int page)
     {
-        mContentView.showLoading(true);
+        if (page == 1)
+        {
+            mContentView.showLoading(true);
+        }
+        String type = mContentView.getType();
+        String url = Apis.getContentListApi(type, page);
+        Logger.w(url);
 
-        OkHttpClient client  = new OkHttpClient();
-        Request      request = new Request.Builder().get().url(mContentView.contentListApi()).build();
-        Call         call    = client.newCall(request);
-        call.enqueue(new Callback()
+        OkHttpUtils.get().url(url).build().execute(new Callback<List<Content>>()
         {
             @Override
-            public void onFailure(Call call, IOException e)
+            public List<Content> parseNetworkResponse(Response response) throws Exception
             {
+                String data = response.body().string();
 
+                try
+                {
+                    JSONObject rootJson = new JSONObject(data);
+                    final int status = rootJson.optInt("err");
+
+                    if (status == 0)
+                    {
+                        JSONArray array = rootJson.optJSONArray("items");
+
+                        if (array != null && array.length() > 0)
+                        {
+                            List<Content> lists = new ArrayList<>();
+                            final int length = array.length();
+
+                            for (int i = 0; i < length; i++)
+                            {
+                                JSONObject json = array.optJSONObject(i);
+                                Content content = Content.parse(json);
+
+                                lists.add(content);
+                            }
+
+                            return lists;
+                        }
+                    }
+                } catch (Exception e)
+                {
+                    Logger.e("loading data", e);
+                }
+                return null;
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException
+            public void onError(Call call, Exception e)
             {
-                if (response.cacheResponse() != null)
-                {
-                    Logger.e(response.cacheResponse().toString());
-                } else
-                {
-                    Logger.e(response.body().string() + "    " + response.networkResponse().toString());
-                }
+                mContentView.loadResult(false);
+            }
+
+            @Override
+            public void onResponse(List<Content> response)
+            {
+                mContentView.loadResult(true);
+                mContentView.showDataAfterLoad(response, page == 1);
             }
         });
+
 
     }
 }

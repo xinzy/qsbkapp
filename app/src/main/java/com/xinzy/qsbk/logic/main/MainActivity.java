@@ -53,10 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
 
-        ContentFragment contentFragment = ContentFragment.newInstance();
-        mPresenter = new ContentPresenter(contentFragment);
-
-        getSupportFragmentManager().beginTransaction().add(R.id.content, contentFragment, "CONTENT").commit();
+        showFragment(ContentFragment.TYPE_SUGGEST);
     }
 
     @Override
@@ -120,5 +117,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void showFragment(String action) {
+
+        ContentFragment contentFragment = ContentFragment.newInstance(action);
+        mPresenter = new ContentPresenter(contentFragment);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, contentFragment, action).commit();
     }
 }

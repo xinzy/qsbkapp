@@ -28,4 +28,12 @@ public class Apis
         long time = System.currentTimeMillis() / 1000;
         return R + time;
     }
+
+    private static final String CONTENT_URL = BASE_API + "/article/list/%1$s?page=%2$s&count=30&rqcnt=%3$s&r=%4$s";
+    public static final String getContentListApi(String type, int page)
+    {
+        return String.format(CONTENT_URL, type, page, getCounter(), getR());
+    }
+
+
 }
