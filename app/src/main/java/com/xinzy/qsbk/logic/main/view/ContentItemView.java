@@ -2,14 +2,16 @@ package com.xinzy.qsbk.logic.main.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.xinzy.qsbk.R;
 import com.xinzy.qsbk.common.model.Content;
+import com.xinzy.qsbk.common.model.ImageSize;
 import com.xinzy.qsbk.common.model.User;
 import com.xinzy.qsbk.common.ui.ItemView;
 
@@ -20,11 +22,13 @@ public class ContentItemView extends LinearLayout implements ItemView
 {
     protected Context mContext;
 
-    private ImageView mAvatarImageView;
-    private TextView usernameTextView;
-    private TextView stateTextView;
-    private TextView contentTextView;
-    private TextView dataTextView;
+    private SimpleDraweeView mAvatarImageView;
+    private TextView         usernameTextView;
+    private TextView         stateTextView;
+    private TextView         contentTextView;
+    private TextView         dataTextView;
+
+    private SimpleDraweeView contentImageView;
 
     public ContentItemView(Context context)
     {
@@ -55,11 +59,13 @@ public class ContentItemView extends LinearLayout implements ItemView
     @Override
     public void onInit()
     {
-        mAvatarImageView = (ImageView) findViewById(R.id.avatar_img);
+        mAvatarImageView = (SimpleDraweeView) findViewById(R.id.avatar_img);
         usernameTextView = (TextView) findViewById(R.id.username_text);
         stateTextView = (TextView) findViewById(R.id.state_text);
         contentTextView = (TextView) findViewById(R.id.content_text);
         dataTextView = (TextView) findViewById(R.id.data_text);
+
+        contentImageView = (SimpleDraweeView) findViewById(R.id.content_img);
     }
 
     @Override
@@ -69,6 +75,11 @@ public class ContentItemView extends LinearLayout implements ItemView
 
         User user = content.getUser();
         usernameTextView.setText(user != null ? user.getUsername() : getResources().getString(R.string.anonymous));
+        if (user != null)
+        {
+            mAvatarImageView.setImageURI(Uri.parse(user.getAvatar()));
+        }
+
         if (content.getType() == Content.Type.Hot)
         {
             Drawable drawable = getResources().getDrawable(R.mipmap.state_hot);
@@ -87,6 +98,30 @@ public class ContentItemView extends LinearLayout implements ItemView
         }
         contentTextView.setText(content.getContent());
         dataTextView.setText(getResources().getString(R.string.content_data, content.getVote().getUp(), content.getVote().getDown(), content.getCommentCount(), content.getShareCount()));
+
+        if (content.getFormat() == Content.Format.Image)
+        {
+            ImageSize imageSize = content.getMediumSize();
+            String imgurl = content.getMediumImage();
+            if (imageSize == null)
+            {
+                imageSize = content.getSmallSize();
+                imgurl = content.getSmallImage();
+            }
+            if (imageSize == null || imageSize.getHeight() <= 0)
+            {
+                contentImageView.setVisibility(View.GONE);
+            } else
+            {
+                contentImageView.setVisibility(View.VISIBLE);
+                float ratio = imageSize.getWidth() * 1.0f / imageSize.getHeight();
+                contentImageView.setAspectRatio(ratio);
+                contentImageView.setImageURI(Uri.parse(imgurl));
+            }
+        } else
+        {
+            contentImageView.setVisibility(View.GONE);
+        }
     }
 
     @Override

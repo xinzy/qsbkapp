@@ -96,6 +96,7 @@ public class ContentPresenter implements IContentPresenter
             @Override
             public void onResponse(List<Content> response)
             {
+                mContentView.showLoading(false);
                 mContentView.loadResult(true);
                 mContentView.showDataAfterLoad(response, page == 1);
             }

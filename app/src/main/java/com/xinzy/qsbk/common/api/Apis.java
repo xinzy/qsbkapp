@@ -1,5 +1,7 @@
 package com.xinzy.qsbk.common.api;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * Created by Xinzy on 2016/4/27.
  */
@@ -12,16 +14,8 @@ public class Apis
     public static final String PIC_SERVER = "http://pic" + DOMAIN;
 
 
-    private static int COUNTER = 1;
-    private static final String R = "cc7b51d7";
-
-    public static final int getCounter()
-    {
-        int counter = COUNTER;
-        COUNTER ++;
-
-        return counter;
-    }
+    private static       AtomicInteger COUNTER = new AtomicInteger(1);
+    private static final String        R       = "cc7b51d7";
 
     public static final String getR()
     {
@@ -32,7 +26,7 @@ public class Apis
     private static final String CONTENT_URL = BASE_API + "/article/list/%1$s?page=%2$s&count=30&rqcnt=%3$s&r=%4$s";
     public static final String getContentListApi(String type, int page)
     {
-        return String.format(CONTENT_URL, type, page, getCounter(), getR());
+        return String.format(CONTENT_URL, type, page, COUNTER.getAndIncrement(), getR());
     }
 
 

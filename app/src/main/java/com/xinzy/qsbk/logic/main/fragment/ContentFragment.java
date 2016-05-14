@@ -8,10 +8,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
+import com.xinzy.qsbk.MainActivity;
 import com.xinzy.qsbk.R;
 import com.xinzy.qsbk.common.base.AbsBaseFragment;
 import com.xinzy.qsbk.common.model.Content;
-import com.xinzy.qsbk.common.util.Logger;
 import com.xinzy.qsbk.logic.main.adapter.ContentAdapter;
 import com.xinzy.qsbk.logic.main.presenter.IContentPresenter;
 
@@ -21,7 +21,8 @@ import java.util.List;
  * Created by Xinzy on 2016/4/27.
  */
 public class ContentFragment extends AbsBaseFragment implements
-        SwipeRefreshLayout.OnRefreshListener, AbsListView.OnScrollListener, IContentView
+        SwipeRefreshLayout.OnRefreshListener, AbsListView.OnScrollListener, IContentView,
+        MainActivity.OnFloatActionButtonClickListener
 {
     public static final String TYPE_SUGGEST = "suggest";
     public static final String TYPE_VIDEO   = "video";
@@ -37,7 +38,7 @@ public class ContentFragment extends AbsBaseFragment implements
 
     private IContentPresenter mContentPresenter;
 
-    private String  type;
+    private String type;
     private int     page      = 1;
     private boolean isLoading = false;
 
@@ -84,20 +85,28 @@ public class ContentFragment extends AbsBaseFragment implements
             @Override
             public void run()
             {
-                mContentPresenter.loading(1);
+                loading(true);
             }
         }, 150);
+    }
+
+    private void loading(boolean refresh)
+    {
+        if (!isLoading)
+        {
+            isLoading = true;
+            if (refresh)
+            {
+                page = 1;
+            }
+            mContentPresenter.loading(page);
+        }
     }
 
     @Override
     public void onRefresh()
     {
-        if (!isLoading)
-        {
-            isLoading = true;
-            page = 1;
-            mContentPresenter.loading(page);
-        }
+        loading(true);
     }
 
     @Override
@@ -109,7 +118,6 @@ public class ContentFragment extends AbsBaseFragment implements
     @Override
     public void loadResult(boolean success)
     {
-        showLoading(false);
         if (success)
         {
             page++;
@@ -149,11 +157,7 @@ public class ContentFragment extends AbsBaseFragment implements
         case AbsListView.OnScrollListener.SCROLL_STATE_IDLE: // 滚动停止
             if (view.getLastVisiblePosition() == (view.getCount() - 1))
             {
-                if (!isLoading)
-                {
-                    isLoading = true;
-                    mContentPresenter.loading(page);
-                }
+                loading(false);
             } else if (view.getFirstVisiblePosition() == 0)
             {
                 // 滚动到顶部
@@ -169,5 +173,14 @@ public class ContentFragment extends AbsBaseFragment implements
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
     {
+    }
+
+    @Override
+    public void onFloatActionButtonClick()
+    {
+        if (mContentAdapter.getCount() > 0)
+        {
+//            mListView.smoothScrollToPosition(0);//滚到倒顶部
+        }
     }
 }

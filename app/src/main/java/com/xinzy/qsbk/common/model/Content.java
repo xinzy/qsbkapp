@@ -58,7 +58,8 @@ public class Content
             JSONObject imgJson = json.optJSONObject("image_size");
             if (imgJson != null)
             {
-
+                mediumSize = ImageSize.parse(imgJson.optJSONArray("m"));
+                smallSize = ImageSize.parse(imgJson.optJSONArray("s"));
             }
         }
 

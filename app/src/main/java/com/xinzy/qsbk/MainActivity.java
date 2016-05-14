@@ -18,15 +18,18 @@ import android.view.View;
 import com.xinzy.qsbk.logic.main.fragment.ContentFragment;
 import com.xinzy.qsbk.logic.main.presenter.ContentPresenter;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
+public class MainActivity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener
 {
 
     private Toolbar              mToolBar;
     private FloatingActionButton mFloatingActionButton;
     private DrawerLayout         mDrawerLayout;
     private NavigationView       mNavigationView;
+    private ContentPresenter     mPresenter;
 
-    private ContentPresenter mPresenter;
+    private OnFloatActionButtonClickListener mOnFloatActionButtonClickListener;
+    private String mCurrentDisplayType;
 
     public static void start(Context context)
     {
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view)
             {
+                mOnFloatActionButtonClickListener.onFloatActionButtonClick();
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
@@ -59,7 +63,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
+        mNavigationView.setCheckedItem(R.id.nav_suggest);
 
+        mCurrentDisplayType = ContentFragment.TYPE_SUGGEST;
         showFragment(ContentFragment.TYPE_SUGGEST);
     }
 
@@ -104,17 +110,48 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (id)
         {
         case R.id.nav_suggest:      //专享
+
+            if (! ContentFragment.TYPE_SUGGEST.equals(mCurrentDisplayType))
+            {
+                mCurrentDisplayType = ContentFragment.TYPE_SUGGEST;
+                showFragment(mCurrentDisplayType);
+            }
             break;
+
         case R.id.nav_video:        //视频
+
+            if (! ContentFragment.TYPE_VIDEO.equals(mCurrentDisplayType))
+            {
+                mCurrentDisplayType = ContentFragment.TYPE_VIDEO;
+                showFragment(mCurrentDisplayType);
+            }
             break;
 
         case R.id.nav_image:        //图片
+
+            if (! ContentFragment.TYPE_IMAGE.equals(mCurrentDisplayType))
+            {
+                mCurrentDisplayType = ContentFragment.TYPE_IMAGE;
+                showFragment(mCurrentDisplayType);
+            }
             break;
 
         case R.id.nav_text:         //文字
+
+            if (! ContentFragment.TYPE_TEXT.equals(mCurrentDisplayType))
+            {
+                mCurrentDisplayType = ContentFragment.TYPE_TEXT;
+                showFragment(mCurrentDisplayType);
+            }
             break;
 
         case R.id.nav_day:          //精华
+
+            if (! ContentFragment.TYPE_DAY.equals(mCurrentDisplayType))
+            {
+                mCurrentDisplayType = ContentFragment.TYPE_DAY;
+                showFragment(mCurrentDisplayType);
+            }
             break;
 
         case R.id.nav_setting:      //设置
@@ -128,8 +165,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void showFragment(String action)
     {
         ContentFragment contentFragment = ContentFragment.newInstance(action);
+        mOnFloatActionButtonClickListener = contentFragment;
         mPresenter = new ContentPresenter(contentFragment);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.content, contentFragment, action).commit();
+    }
+
+    public interface OnFloatActionButtonClickListener
+    {
+        void onFloatActionButtonClick();
     }
 }

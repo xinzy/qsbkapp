@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.xinzy.qsbk.common.util.Logger;
-
 /**
  * Created by Xinzy on 2016/4/28.
  */
@@ -21,7 +19,6 @@ public abstract class AbsBaseFragment extends Fragment
     @Override
     public final View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        Logger.e("onCreateView");
         rootView = inflater.inflate(getLayout(), container, false);
 
         return rootView;
@@ -30,7 +27,6 @@ public abstract class AbsBaseFragment extends Fragment
     @Override
     public final void onViewCreated(View view, @Nullable Bundle savedInstanceState)
     {
-        Logger.e("onViewCreated");
         super.onViewCreated(view, savedInstanceState);
         initializeView();
     }
