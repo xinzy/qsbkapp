@@ -8,12 +8,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
+import com.xinzy.qsbk.ContentActivity;
 import com.xinzy.qsbk.MainActivity;
 import com.xinzy.qsbk.R;
 import com.xinzy.qsbk.common.base.AbsBaseFragment;
 import com.xinzy.qsbk.common.model.Content;
 import com.xinzy.qsbk.logic.main.adapter.ContentAdapter;
 import com.xinzy.qsbk.logic.main.presenter.IContentPresenter;
+import com.xinzy.qsbk.logic.main.view.ContentItemView;
 
 import java.util.List;
 
@@ -22,7 +24,7 @@ import java.util.List;
  */
 public class ContentFragment extends AbsBaseFragment implements
         SwipeRefreshLayout.OnRefreshListener, AbsListView.OnScrollListener, IContentView,
-        MainActivity.OnFloatActionButtonClickListener
+        MainActivity.ContentFragmentCallback, ContentItemView.OnItemViewListener
 {
     public static final String TYPE_SUGGEST = "suggest";
     public static final String TYPE_VIDEO   = "video";
@@ -78,6 +80,7 @@ public class ContentFragment extends AbsBaseFragment implements
         mListView.setOnScrollListener(this);
         mListView.setOnScrollListener(this);
         mContentAdapter = new ContentAdapter();
+        mContentAdapter.setOnItemViewListener(this);
         mListView.setAdapter(mContentAdapter);
 
         new Handler().postDelayed(new Runnable()
@@ -176,11 +179,83 @@ public class ContentFragment extends AbsBaseFragment implements
     }
 
     @Override
-    public void onFloatActionButtonClick()
+    public void onActionBarClick()
     {
         if (mContentAdapter.getCount() > 0)
         {
-//            mListView.smoothScrollToPosition(0);//滚到倒顶部
+            mListView.smoothScrollToPosition(0);//滚到倒顶部
         }
+    }
+
+    @Override
+    public void onFloatActionButtonClick()
+    {
+        loading(true);
+    }
+
+    @Override
+    public void onItemClick(ContentItemView itemView, Content content, int position)
+    {
+        ContentActivity.start(getContext(), content);
+    }
+
+    @Override
+    public void onAvatarClick(ContentItemView itemView, Content content, int position)
+    {
+
+    }
+
+    @Override
+    public void onImageClick(ContentItemView itemView, Content content, int position)
+    {
+
+    }
+
+    @Override
+    public void onSupportClick(ContentItemView itemView, Content content, int position)
+    {
+        final int userState = content.getUserState();
+        content.setUserState(Content.STATE_SUPPORT);
+        itemView.getSupportImageView().setSelected(true);
+        if (userState == Content.STATE_NONE)
+        {
+            content.getVote().setUp(content.getVote().getUp() + 1);
+        } else if (userState == Content.STATE_UNSUPPORT)
+        {
+            content.getVote().setUp(content.getVote().getUp() + 1);
+            content.getVote().setDown(content.getVote().getDown() + 1);
+            itemView.getUnsupportImageView().setSelected(false);
+        }
+        itemView.setDataText(content);
+    }
+
+    @Override
+    public void onUnsupportClick(ContentItemView itemView, Content content, int position)
+    {
+        final int userState = content.getUserState();
+        content.setUserState(Content.STATE_UNSUPPORT);
+        itemView.getUnsupportImageView().setSelected(true);
+        if (userState == Content.STATE_NONE)
+        {
+            content.getVote().setDown(content.getVote().getDown() - 1);
+        } else if (userState == Content.STATE_SUPPORT)
+        {
+            content.getVote().setUp(content.getVote().getUp() - 1);
+            content.getVote().setDown(content.getVote().getDown() - 1);
+            itemView.getSupportImageView().setSelected(false);
+        }
+        itemView.setDataText(content);
+    }
+
+    @Override
+    public void onCommentClick(ContentItemView itemView, Content content, int position)
+    {
+
+    }
+
+    @Override
+    public void onShareClick(ContentItemView itemView, Content content, int position)
+    {
+
     }
 }

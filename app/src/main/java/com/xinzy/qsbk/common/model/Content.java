@@ -1,5 +1,8 @@
 package com.xinzy.qsbk.common.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.xinzy.qsbk.common.api.Apis;
 import com.xinzy.qsbk.common.util.Utils;
 
@@ -8,22 +11,26 @@ import org.json.JSONObject;
 /**
  * Created by Xinzy on 2016/4/27.
  */
-public class Content
+public class Content implements Parcelable
 {
-    private Format format;
-    private String image;
-    private long published;
-    private String tag;
-    private User user;
-    private int id;
-    private Vote vote;
-    private long created;
-    private String content;
-    private String state;
+    public static final int STATE_NONE      = 0;
+    public static final int STATE_SUPPORT   = 1;
+    public static final int STATE_UNSUPPORT = 2;
+
+    private Format  format;
+    private String  image;
+    private long    published;
+    private String  tag;
+    private User    user;
+    private int     id;
+    private Vote    vote;
+    private long    created;
+    private String  content;
+    private String  state;
     private boolean allowComment;
-    private int commentCount;
-    private int shareCount;
-    private Type type;
+    private int     commentCount;
+    private int     shareCount;
+    private Type    type;
 
     private ImageSize smallSize;
     private ImageSize mediumSize;
@@ -32,7 +39,9 @@ public class Content
     private String highUrl;
     private String lowUrl;
     private String picUrl;
-    private int loop;
+    private int    loop;
+
+    private int userState;
 
     public Content() {}
 
@@ -53,7 +62,7 @@ public class Content
         shareCount = json.optInt("share_count");
         type = Type.from(json.optString("type"));
 
-        if (! Utils.isEmpty(image))
+        if (!Utils.isEmpty(image))
         {
             JSONObject imgJson = json.optJSONObject("image_size");
             if (imgJson != null)
@@ -297,6 +306,16 @@ public class Content
         this.mediumSize = mediumSize;
     }
 
+    public int getUserState()
+    {
+        return userState;
+    }
+
+    public void setUserState(int userState)
+    {
+        this.userState = userState;
+    }
+
     public static enum Type
     {
         Null(""),
@@ -360,4 +379,69 @@ public class Content
             return Word;
         }
     }
+
+    @Override
+    public int describeContents() { return 0; }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+        dest.writeInt(this.format == null ? -1 : this.format.ordinal());
+        dest.writeString(this.image);
+        dest.writeLong(this.published);
+        dest.writeString(this.tag);
+        dest.writeParcelable(this.user, flags);
+        dest.writeInt(this.id);
+        dest.writeParcelable(this.vote, flags);
+        dest.writeLong(this.created);
+        dest.writeString(this.content);
+        dest.writeString(this.state);
+        dest.writeByte(this.allowComment ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.commentCount);
+        dest.writeInt(this.shareCount);
+        dest.writeInt(this.type == null ? -1 : this.type.ordinal());
+        dest.writeParcelable(this.smallSize, flags);
+        dest.writeParcelable(this.mediumSize, flags);
+        dest.writeString(this.highUrl);
+        dest.writeString(this.lowUrl);
+        dest.writeString(this.picUrl);
+        dest.writeInt(this.loop);
+        dest.writeInt(this.userState);
+    }
+
+    protected Content(Parcel in)
+    {
+        int tmpFormat = in.readInt();
+        this.format = tmpFormat == -1 ? null : Format.values()[tmpFormat];
+        this.image = in.readString();
+        this.published = in.readLong();
+        this.tag = in.readString();
+        this.user = in.readParcelable(User.class.getClassLoader());
+        this.id = in.readInt();
+        this.vote = in.readParcelable(Vote.class.getClassLoader());
+        this.created = in.readLong();
+        this.content = in.readString();
+        this.state = in.readString();
+        this.allowComment = in.readByte() != 0;
+        this.commentCount = in.readInt();
+        this.shareCount = in.readInt();
+        int tmpType = in.readInt();
+        this.type = tmpType == -1 ? null : Type.values()[tmpType];
+        this.smallSize = in.readParcelable(ImageSize.class.getClassLoader());
+        this.mediumSize = in.readParcelable(ImageSize.class.getClassLoader());
+        this.highUrl = in.readString();
+        this.lowUrl = in.readString();
+        this.picUrl = in.readString();
+        this.loop = in.readInt();
+        this.userState = in.readInt();
+    }
+
+    public static final Creator<Content> CREATOR = new Creator<Content>()
+    {
+        @Override
+        public Content createFromParcel(Parcel source) {return new Content(source);}
+
+        @Override
+        public Content[] newArray(int size) {return new Content[size];}
+    };
 }

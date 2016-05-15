@@ -1,11 +1,14 @@
 package com.xinzy.qsbk.common.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONArray;
 
 /**
  * Created by Xinzy on 2016/4/29.
  */
-public class ImageSize
+public class ImageSize implements Parcelable
 {
 
     private int width;
@@ -57,4 +60,31 @@ public class ImageSize
     {
         this.size = size;
     }
+
+    @Override
+    public int describeContents() { return 0; }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+        dest.writeInt(this.width);
+        dest.writeInt(this.height);
+        dest.writeLong(this.size);
+    }
+
+    protected ImageSize(Parcel in)
+    {
+        this.width = in.readInt();
+        this.height = in.readInt();
+        this.size = in.readLong();
+    }
+
+    public static final Creator<ImageSize> CREATOR = new Creator<ImageSize>()
+    {
+        @Override
+        public ImageSize createFromParcel(Parcel source) {return new ImageSize(source);}
+
+        @Override
+        public ImageSize[] newArray(int size) {return new ImageSize[size];}
+    };
 }

@@ -2,6 +2,7 @@
 <com.xinzy.qsbk.logic.main.view.ContentItemView xmlns:android="http://schemas.android.com/apk/res/android"
                                                 xmlns:tools="http://schemas.android.com/tools"
                                                 xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                                                android:id="@+id/content_item_layout"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="match_parent"
                                                 android:background="@drawable/simple_bg"
@@ -64,7 +65,8 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         fresco:viewAspectRatio="0.5"
-        fresco:actualImageScaleType="fitXY"/>
+        fresco:actualImageScaleType="fitXY"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/data_text"
@@ -81,21 +83,24 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:id="@+id/support_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_support_sel"/>
 
         <ImageButton
+            android:id="@+id/unsupport_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_unsupport_sel"/>
 
         <ImageButton
+            android:id="@+id/comment_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:background="@drawable/simple_bg"
             android:src="@drawable/operation_comments"/>
 
         <android.support.v4.widget.Space
@@ -104,9 +109,10 @@
             android:layout_weight="1"/>
 
         <ImageButton
+            android:id="@+id/share_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:background="@drawable/simple_bg"
             android:src="@drawable/operation_share"/>
     </LinearLayout>
 </com.xinzy.qsbk.logic.main.view.ContentItemView>

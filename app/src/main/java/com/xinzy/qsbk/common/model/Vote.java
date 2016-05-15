@@ -1,12 +1,15 @@
 package com.xinzy.qsbk.common.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * Created by Xinzy on 2016/4/27.
  */
-public class Vote
+public class Vote implements Parcelable
 {
     private int up;
     private int down;
@@ -49,4 +52,29 @@ public class Vote
     {
         this.down = down;
     }
+
+    @Override
+    public int describeContents() { return 0; }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+        dest.writeInt(this.up);
+        dest.writeInt(this.down);
+    }
+
+    protected Vote(Parcel in)
+    {
+        this.up = in.readInt();
+        this.down = in.readInt();
+    }
+
+    public static final Parcelable.Creator<Vote> CREATOR = new Parcelable.Creator<Vote>()
+    {
+        @Override
+        public Vote createFromParcel(Parcel source) {return new Vote(source);}
+
+        @Override
+        public Vote[] newArray(int size) {return new Vote[size];}
+    };
 }

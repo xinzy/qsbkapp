@@ -13,6 +13,12 @@ import com.xinzy.qsbk.logic.main.view.ContentItemView;
 public class ContentAdapter extends AbsListAdapter<Content>
 {
 
+    private ContentItemView.OnItemViewListener mOnItemViewListener;
+
+    public void setOnItemViewListener(ContentItemView.OnItemViewListener onItemViewListener)
+    {
+        this.mOnItemViewListener = onItemViewListener;
+    }
 
     @Override
     protected int getLayout(int position)
@@ -24,6 +30,7 @@ public class ContentAdapter extends AbsListAdapter<Content>
     protected void onSetData(View view, int position)
     {
         ContentItemView itemView = (ContentItemView) view;
+        itemView.setOnItemViewListener(mOnItemViewListener);
         itemView.onSetData(mData.get(position), position);
     }
 }

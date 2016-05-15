@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -28,8 +27,8 @@ public class MainActivity extends AppCompatActivity implements
     private NavigationView       mNavigationView;
     private ContentPresenter     mPresenter;
 
-    private OnFloatActionButtonClickListener mOnFloatActionButtonClickListener;
-    private String mCurrentDisplayType;
+    private ContentFragmentCallback mContentFragmentCallback;
+    private String                  mCurrentDisplayType;
 
     public static void start(Context context)
     {
@@ -43,6 +42,17 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
+        mToolBar.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (mContentFragmentCallback != null)
+                {
+                    mContentFragmentCallback.onActionBarClick();
+                }
+            }
+        });
         setSupportActionBar(mToolBar);
 
         mFloatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
@@ -51,14 +61,16 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view)
             {
-                mOnFloatActionButtonClickListener.onFloatActionButtonClick();
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                if (mContentFragmentCallback != null)
+                {
+                    mContentFragmentCallback.onFloatActionButtonClick();
+                }
             }
         });
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolBar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawerLayout.setDrawerListener(toggle);
+        mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -111,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements
         {
         case R.id.nav_suggest:      //专享
 
-            if (! ContentFragment.TYPE_SUGGEST.equals(mCurrentDisplayType))
+            if (!ContentFragment.TYPE_SUGGEST.equals(mCurrentDisplayType))
             {
                 mCurrentDisplayType = ContentFragment.TYPE_SUGGEST;
                 showFragment(mCurrentDisplayType);
@@ -120,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements
 
         case R.id.nav_video:        //视频
 
-            if (! ContentFragment.TYPE_VIDEO.equals(mCurrentDisplayType))
+            if (!ContentFragment.TYPE_VIDEO.equals(mCurrentDisplayType))
             {
                 mCurrentDisplayType = ContentFragment.TYPE_VIDEO;
                 showFragment(mCurrentDisplayType);
@@ -129,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements
 
         case R.id.nav_image:        //图片
 
-            if (! ContentFragment.TYPE_IMAGE.equals(mCurrentDisplayType))
+            if (!ContentFragment.TYPE_IMAGE.equals(mCurrentDisplayType))
             {
                 mCurrentDisplayType = ContentFragment.TYPE_IMAGE;
                 showFragment(mCurrentDisplayType);
@@ -138,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements
 
         case R.id.nav_text:         //文字
 
-            if (! ContentFragment.TYPE_TEXT.equals(mCurrentDisplayType))
+            if (!ContentFragment.TYPE_TEXT.equals(mCurrentDisplayType))
             {
                 mCurrentDisplayType = ContentFragment.TYPE_TEXT;
                 showFragment(mCurrentDisplayType);
@@ -147,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements
 
         case R.id.nav_day:          //精华
 
-            if (! ContentFragment.TYPE_DAY.equals(mCurrentDisplayType))
+            if (!ContentFragment.TYPE_DAY.equals(mCurrentDisplayType))
             {
                 mCurrentDisplayType = ContentFragment.TYPE_DAY;
                 showFragment(mCurrentDisplayType);
@@ -165,14 +177,16 @@ public class MainActivity extends AppCompatActivity implements
     private void showFragment(String action)
     {
         ContentFragment contentFragment = ContentFragment.newInstance(action);
-        mOnFloatActionButtonClickListener = contentFragment;
+        mContentFragmentCallback = contentFragment;
         mPresenter = new ContentPresenter(contentFragment);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.content, contentFragment, action).commit();
     }
 
-    public interface OnFloatActionButtonClickListener
+    public interface ContentFragmentCallback
     {
+        void onActionBarClick();
+
         void onFloatActionButtonClick();
     }
 }
