@@ -27,11 +27,13 @@ public class ImageLoadingDrawable extends Drawable
     private int mTotalProgress = 10000;// 总进度
     private int mProgress;// 当前进度
 
-    public ImageLoadingDrawable(){
+    public ImageLoadingDrawable()
+    {
         initAttrs();
     }
 
-    private void initAttrs() {
+    private void initAttrs()
+    {
         mRadius = 16;
         mStrokeWidth = 4;
         mRingBackgroundColor = 0xFFadadad;
@@ -40,7 +42,8 @@ public class ImageLoadingDrawable extends Drawable
         initVariable();
     }
 
-    private void initVariable() {
+    private void initVariable()
+    {
         mRingBackgroundPaint = new Paint();
         mRingBackgroundPaint.setAntiAlias(true);
         mRingBackgroundPaint.setColor(mRingBackgroundColor);
@@ -55,13 +58,16 @@ public class ImageLoadingDrawable extends Drawable
     }
 
     @Override
-    public void draw(Canvas canvas) {
-        drawBar(canvas,mTotalProgress,mRingBackgroundPaint);
-        drawBar(canvas,mProgress,mRingPaint);
+    public void draw(Canvas canvas)
+    {
+        drawBar(canvas, mTotalProgress, mRingBackgroundPaint);
+        drawBar(canvas, mProgress, mRingPaint);
     }
 
-    private void drawBar(Canvas canvas, int level, Paint paint) {
-        if (level > 0 ) {
+    private void drawBar(Canvas canvas, int level, Paint paint)
+    {
+        if (level > 0)
+        {
             Rect bound = getBounds();
             mXCenter = bound.centerX();
             mYCenter = bound.centerY();
@@ -75,28 +81,34 @@ public class ImageLoadingDrawable extends Drawable
     }
 
     @Override
-    protected boolean onLevelChange(int level) {
+    protected boolean onLevelChange(int level)
+    {
         mProgress = level;
-        if(level > 0 && level < 10000) {
+        if (level > 0 && level < 10000)
+        {
             invalidateSelf();
             return true;
-        }else {
+        } else
+        {
             return false;
         }
     }
 
     @Override
-    public void setAlpha(int alpha) {
+    public void setAlpha(int alpha)
+    {
         mRingPaint.setAlpha(alpha);
     }
 
     @Override
-    public void setColorFilter(ColorFilter cf) {
+    public void setColorFilter(ColorFilter cf)
+    {
         mRingPaint.setColorFilter(cf);
     }
 
     @Override
-    public int getOpacity() {
+    public int getOpacity()
+    {
         return DrawableUtils.getOpacityFromColor(this.mRingPaint.getColor());
     }
 }

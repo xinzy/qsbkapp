@@ -78,7 +78,6 @@ public class ContentFragment extends AbsBaseFragment implements
         mRefreshLayout.setOnRefreshListener(this);
         mListView = (ListView) findViewById(R.id.content_listview);
         mListView.setOnScrollListener(this);
-        mListView.setOnScrollListener(this);
         mContentAdapter = new ContentAdapter();
         mContentAdapter.setOnItemViewListener(this);
         mListView.setAdapter(mContentAdapter);

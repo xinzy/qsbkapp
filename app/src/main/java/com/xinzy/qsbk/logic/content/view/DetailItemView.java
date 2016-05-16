@@ -3,6 +3,7 @@ package com.xinzy.qsbk.logic.content.view;
 import android.content.Context;
 import android.net.Uri;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,18 +16,19 @@ import com.xinzy.qsbk.common.ui.ItemView;
 /**
  * Created by gaodun on 2016/5/16.
  */
-public class DetailItemView extends LinearLayout implements ItemView
+public class DetailItemView extends LinearLayout implements ItemView, View.OnClickListener
 {
     protected Context mContext;
 
     private SimpleDraweeView mAvatarView;
-    private TextView usernameTextView;
-    private TextView floorTextView;
-    private TextView contentTextView;
-    private TextView timeTextView;
-    private TextView praiseTextView;
+    private TextView         usernameTextView;
+    private TextView         floorTextView;
+    private TextView         contentTextView;
+    private TextView         timeTextView;
+    private TextView         praiseTextView;
 
-    private Comment mComment;
+    private Comment          mComment;
+    private ItemViewListener mItemViewListener;
 
     public DetailItemView(Context context)
     {
@@ -51,15 +53,25 @@ public class DetailItemView extends LinearLayout implements ItemView
         mContext = context;
     }
 
+    public void setItemViewListener(ItemViewListener mItemViewListener)
+    {
+        this.mItemViewListener = mItemViewListener;
+    }
+
     @Override
     public void onInit()
     {
         mAvatarView = (SimpleDraweeView) findViewById(R.id.detail_avatar_view);
         usernameTextView = (TextView) findViewById(R.id.detail_username_text);
         floorTextView = (TextView) findViewById(R.id.detail_floor_text);
-        contentTextView = (TextView) findViewById(R.id.detail_content_tet);
+        contentTextView = (TextView) findViewById(R.id.detail_content_text);
         timeTextView = (TextView) findViewById(R.id.detail_time_text);
         praiseTextView = (TextView) findViewById(R.id.detail_praise_text);
+
+        mAvatarView.setOnClickListener(this);
+        contentTextView.setOnClickListener(this);
+        praiseTextView.setOnClickListener(this);
+        setOnClickListener(this);
     }
 
     @Override
@@ -76,7 +88,7 @@ public class DetailItemView extends LinearLayout implements ItemView
         floorTextView.setText(mComment.getFloor() + "");
         contentTextView.setText(mComment.getContent());
         timeTextView.setText(mComment.getTime());
-        praiseTextView.setText(mComment.getLikeCount() + "");
+        praiseTextView.setText(mComment.getLikeCount() > 0 ? mComment.getLikeCount() + "" : "");
     }
 
     @Override
@@ -85,8 +97,51 @@ public class DetailItemView extends LinearLayout implements ItemView
 
     }
 
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
+        case R.id.detail_avatar_view:
+            if (mItemViewListener != null)
+            {
+                mItemViewListener.onAvatarClick(this, mComment);
+            }
+            break;
+
+        case R.id.detail_content_text:
+            if (mItemViewListener != null)
+            {
+                mItemViewListener.onContentClick(this, mComment);
+            }
+            break;
+
+        case R.id.detail_praise_text:
+            if (mItemViewListener != null)
+            {
+                mItemViewListener.onPraiseClick(this, mComment);
+            }
+            break;
+
+        default:
+            if (mItemViewListener != null)
+            {
+                mItemViewListener.onItemClick(this, mComment);
+            }
+            break;
+        }
+    }
+
     public interface ItemViewListener
     {
         void onAvatarClick(DetailItemView itemView, Comment comment);
+
+        void onItemClick(DetailItemView itemView, Comment comment);
+
+        void onContentClick(DetailItemView itemView, Comment comment);
+
+        void onPraiseClick(DetailItemView view, Comment comment);
+
+
     }
 }

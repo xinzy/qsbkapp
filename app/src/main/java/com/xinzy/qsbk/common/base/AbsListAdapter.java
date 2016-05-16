@@ -17,8 +17,8 @@ import java.util.List;
  */
 public abstract class AbsListAdapter<T> extends BaseAdapter
 {
-    protected List<T> mData;
-    private LayoutInflater mInflater;
+    protected List<T>        mData;
+    private   LayoutInflater mInflater;
 
     public AbsListAdapter()
     {

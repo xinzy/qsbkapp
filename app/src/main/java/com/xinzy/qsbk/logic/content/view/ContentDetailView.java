@@ -26,18 +26,18 @@ public class ContentDetailView extends LinearLayout implements View.OnClickListe
     protected Context mContext;
 
     private SimpleDraweeView mAvatarImageView;
-    private TextView usernameTextView;
+    private TextView         usernameTextView;
     private TextView         stateTextView;
     private TextView         contentTextView;
     private SimpleDraweeView contentImageView;
-    private ImageView supportImageView;
+    private ImageView        supportImageView;
     private ImageView        unsupportImageView;
 
     private TextView           dataTextView;
     private OnItemViewListener mOnItemViewListener;
-    private Content mContent;
+    private Content            mContent;
 
-    private static final int[] IDS = {R.id.share_image, };
+    private static final int[] IDS = {R.id.share_image,};
 
     public ContentDetailView(Context context)
     {
@@ -239,7 +239,7 @@ public class ContentDetailView extends LinearLayout implements View.OnClickListe
     public void startAnim(View view)
     {
         ObjectAnimator animator = ObjectAnimator.ofFloat(view, "alpha", 1.0f, 0.5f, 1.0f);
-        animator.setDuration(200);
+        animator.setDuration(300);
         animator.setRepeatCount(1);
         animator.start();
     }

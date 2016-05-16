@@ -11,8 +11,8 @@ import org.json.JSONArray;
 public class ImageSize implements Parcelable
 {
 
-    private int width;
-    private int height;
+    private int  width;
+    private int  height;
     private long size;
 
     public ImageSize() {}

@@ -14,7 +14,7 @@ import org.json.JSONObject;
  */
 public class User implements Parcelable
 {
-    private int id;
+    private int    id;
     private String username;
     private String icon;
     private String state;

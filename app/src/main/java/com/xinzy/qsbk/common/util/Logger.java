@@ -16,16 +16,16 @@ public class Logger
 
     public static boolean DBG = true;
 
-    private static final boolean allowD = DBG;
-    private static final boolean allowE = DBG;
-    private static final boolean allowI = DBG;
-    private static final boolean allowV = DBG;
-    private static final boolean allowW = DBG;
+    private static final boolean allowD   = DBG;
+    private static final boolean allowE   = DBG;
+    private static final boolean allowI   = DBG;
+    private static final boolean allowV   = DBG;
+    private static final boolean allowW   = DBG;
     private static final boolean allowWtf = DBG;
 
     private static String generateTag(StackTraceElement caller)
     {
-        String tag = "%s.%s(L:%d)";
+        String tag             = "%s.%s(L:%d)";
         String callerClazzName = caller.getClassName();
         callerClazzName = callerClazzName.substring(callerClazzName.lastIndexOf(".") + 1);
         tag = String.format(tag, callerClazzName, caller.getMethodName(), caller.getLineNumber());
@@ -70,7 +70,7 @@ public class Logger
     {
         if (!allowD) return;
         StackTraceElement caller = getCallerStackTraceElement();
-        String tag = generateTag(caller);
+        String            tag    = generateTag(caller);
 
         if (customLogger != null)
         {
@@ -85,7 +85,7 @@ public class Logger
     {
         if (!allowD) return;
         StackTraceElement caller = getCallerStackTraceElement();
-        String tag = generateTag(caller);
+        String            tag    = generateTag(caller);
 
         if (customLogger != null)
         {
@@ -100,7 +100,7 @@ public class Logger
     {
         if (!allowE) return;
         StackTraceElement caller = getCallerStackTraceElement();
-        String tag = generateTag(caller);
+        String            tag    = generateTag(caller);
 
         if (customLogger != null)
         {
@@ -115,7 +115,7 @@ public class Logger
     {
         if (!allowE) return;
         StackTraceElement caller = getCallerStackTraceElement();
-        String tag = generateTag(caller);
+        String            tag    = generateTag(caller);
 
         if (customLogger != null)
         {
@@ -130,7 +130,7 @@ public class Logger
     {
         if (!allowI) return;
         StackTraceElement caller = getCallerStackTraceElement();
-        String tag = generateTag(caller);
+        String            tag    = generateTag(caller);
 
         if (customLogger != null)
         {
@@ -145,7 +145,7 @@ public class Logger
     {
         if (!allowI) return;
         StackTraceElement caller = getCallerStackTraceElement();
-        String tag = generateTag(caller);
+        String            tag    = generateTag(caller);
 
         if (customLogger != null)
         {
@@ -160,7 +160,7 @@ public class Logger
     {
         if (!allowV) return;
         StackTraceElement caller = getCallerStackTraceElement();
-        String tag = generateTag(caller);
+        String            tag    = generateTag(caller);
 
         if (customLogger != null)
         {
@@ -175,7 +175,7 @@ public class Logger
     {
         if (!allowV) return;
         StackTraceElement caller = getCallerStackTraceElement();
-        String tag = generateTag(caller);
+        String            tag    = generateTag(caller);
 
         if (customLogger != null)
         {
@@ -190,7 +190,7 @@ public class Logger
     {
         if (!allowW) return;
         StackTraceElement caller = getCallerStackTraceElement();
-        String tag = generateTag(caller);
+        String            tag    = generateTag(caller);
 
         if (customLogger != null)
         {
@@ -205,7 +205,7 @@ public class Logger
     {
         if (!allowW) return;
         StackTraceElement caller = getCallerStackTraceElement();
-        String tag = generateTag(caller);
+        String            tag    = generateTag(caller);
 
         if (customLogger != null)
         {
@@ -220,7 +220,7 @@ public class Logger
     {
         if (!allowW) return;
         StackTraceElement caller = getCallerStackTraceElement();
-        String tag = generateTag(caller);
+        String            tag    = generateTag(caller);
 
         if (customLogger != null)
         {
@@ -235,7 +235,7 @@ public class Logger
     {
         if (!allowWtf) return;
         StackTraceElement caller = getCallerStackTraceElement();
-        String tag = generateTag(caller);
+        String            tag    = generateTag(caller);
 
         if (customLogger != null)
         {
@@ -250,7 +250,7 @@ public class Logger
     {
         if (!allowWtf) return;
         StackTraceElement caller = getCallerStackTraceElement();
-        String tag = generateTag(caller);
+        String            tag    = generateTag(caller);
 
         if (customLogger != null)
         {
@@ -265,7 +265,7 @@ public class Logger
     {
         if (!allowWtf) return;
         StackTraceElement caller = getCallerStackTraceElement();
-        String tag = generateTag(caller);
+        String            tag    = generateTag(caller);
 
         if (customLogger != null)
         {

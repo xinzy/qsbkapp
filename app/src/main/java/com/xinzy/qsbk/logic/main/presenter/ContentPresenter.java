@@ -47,7 +47,7 @@ public class ContentPresenter implements IContentPresenter
             mContentView.showLoading(true);
         }
         String type = mContentView.getType();
-        String url = Apis.getContentListApi(type, page);
+        String url  = Apis.getContentListApi(type, page);
         Logger.w(url);
 
         OkHttpUtils.get().url(url).build().execute(new Callback<List<Content>>()
@@ -60,7 +60,7 @@ public class ContentPresenter implements IContentPresenter
                 try
                 {
                     JSONObject rootJson = new JSONObject(data);
-                    final int status = rootJson.optInt("err");
+                    final int  status   = rootJson.optInt("err");
 
                     if (status == 0)
                     {
@@ -68,13 +68,13 @@ public class ContentPresenter implements IContentPresenter
 
                         if (array != null && array.length() > 0)
                         {
-                            List<Content> lists = new ArrayList<>();
-                            final int length = array.length();
+                            List<Content> lists  = new ArrayList<>();
+                            final int     length = array.length();
 
                             for (int i = 0; i < length; i++)
                             {
-                                JSONObject json = array.optJSONObject(i);
-                                Content content = Content.parse(json);
+                                JSONObject json    = array.optJSONObject(i);
+                                Content    content = Content.parse(json);
 
                                 lists.add(content);
                             }

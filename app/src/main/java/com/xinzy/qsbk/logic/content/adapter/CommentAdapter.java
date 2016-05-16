@@ -12,6 +12,13 @@ import com.xinzy.qsbk.logic.content.view.DetailItemView;
  */
 public class CommentAdapter extends AbsListAdapter<Comment>
 {
+    private DetailItemView.ItemViewListener mItemViewListener;
+
+    public void setItemViewListener(DetailItemView.ItemViewListener mItemViewListener)
+    {
+        this.mItemViewListener = mItemViewListener;
+    }
+
     @Override
     protected int getLayout(int position)
     {

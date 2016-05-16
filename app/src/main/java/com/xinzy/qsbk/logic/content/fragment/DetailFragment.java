@@ -12,25 +12,28 @@ import com.xinzy.qsbk.common.model.Content;
 import com.xinzy.qsbk.logic.content.adapter.CommentAdapter;
 import com.xinzy.qsbk.logic.content.presenter.IDetailPresenter;
 import com.xinzy.qsbk.logic.content.view.ContentDetailView;
+import com.xinzy.qsbk.logic.content.view.DetailItemView;
 
 import java.util.List;
 
 /**
  * Created by gaodun on 2016/5/16.
  */
-public class DetailFragment extends AbsBaseFragment implements IDetailView, SwipeRefreshLayout.OnRefreshListener, ContentDetailView.OnItemViewListener
+public class DetailFragment extends AbsBaseFragment implements IDetailView,
+        SwipeRefreshLayout.OnRefreshListener, ContentDetailView.OnItemViewListener,
+        DetailItemView.ItemViewListener
 {
     private static final String KEY_CONTENT = "CONTENT";
 
-    private ContentDetailView mHeaderView;
+    private ContentDetailView  mHeaderView;
     private SwipeRefreshLayout mRefreshLayout;
-    private ListView mListView;
-    private CommentAdapter mCommentAdapter;
+    private ListView           mListView;
+    private CommentAdapter     mCommentAdapter;
 
-    private Content mContent;
+    private Content          mContent;
     private IDetailPresenter mPresenter;
-    private int page = 1;
-    private boolean hasMore = true;
+    private int     page      = 1;
+    private boolean hasMore   = true;
     private boolean isLoading = false;
 
     public static final DetailFragment newInstance(Content content)
@@ -92,13 +95,13 @@ public class DetailFragment extends AbsBaseFragment implements IDetailView, Swip
     @Override
     public void onSupportClick(ContentDetailView itemView, Content content)
     {
-
+        mPresenter.onSupportClick(itemView, content);
     }
 
     @Override
     public void onUnsupportClick(ContentDetailView itemView, Content content)
     {
-
+        mPresenter.onUnsupportClick(itemView, content);
     }
 
     @Override
@@ -124,7 +127,7 @@ public class DetailFragment extends AbsBaseFragment implements IDetailView, Swip
     {
         if (success)
         {
-            page ++;
+            page++;
         } else
         {
             hasMore = false;
@@ -166,5 +169,29 @@ public class DetailFragment extends AbsBaseFragment implements IDetailView, Swip
                 mPresenter.loading(page);
             }
         }
+    }
+
+    @Override
+    public void onAvatarClick(DetailItemView itemView, Comment comment)
+    {
+
+    }
+
+    @Override
+    public void onItemClick(DetailItemView itemView, Comment comment)
+    {
+
+    }
+
+    @Override
+    public void onContentClick(DetailItemView itemView, Comment comment)
+    {
+
+    }
+
+    @Override
+    public void onPraiseClick(DetailItemView view, Comment comment)
+    {
+
     }
 }

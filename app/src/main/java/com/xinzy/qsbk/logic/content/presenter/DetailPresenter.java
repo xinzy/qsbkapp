@@ -6,6 +6,7 @@ import com.xinzy.qsbk.common.api.Apis;
 import com.xinzy.qsbk.common.model.Comment;
 import com.xinzy.qsbk.common.model.Content;
 import com.xinzy.qsbk.logic.content.fragment.IDetailView;
+import com.xinzy.qsbk.logic.content.view.ContentDetailView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,7 +24,7 @@ public class DetailPresenter implements IDetailPresenter
 {
 
     private IDetailView mDetailView;
-    private Content mContent;
+    private Content     mContent;
 
     public DetailPresenter(IDetailView mDetailView)
     {
@@ -55,7 +56,7 @@ public class DetailPresenter implements IDetailPresenter
                 if (rootJson.optInt("err", -1) == 0)
                 {
                     JSONArray array = rootJson.optJSONArray("items");
-                    int length;
+                    int       length;
                     if (array != null && (length = array.length()) > 0)
                     {
                         List<Comment> comments = new ArrayList<>(length);
@@ -85,6 +86,44 @@ public class DetailPresenter implements IDetailPresenter
                 mDetailView.showDataAfterLoad(response, page == 1);
             }
         });
+    }
+
+    @Override
+    public void onSupportClick(ContentDetailView view, Content content)
+    {
+        final int userState = content.getUserState();
+        content.setUserState(Content.STATE_SUPPORT);
+        view.getSupportImageView().setSelected(true);
+        view.startAnim(view.getSupportImageView());
+        if (userState == Content.STATE_NONE)
+        {
+            content.getVote().setUp(content.getVote().getUp() + 1);
+        } else if (userState == Content.STATE_UNSUPPORT)
+        {
+            content.getVote().setUp(content.getVote().getUp() + 1);
+            content.getVote().setDown(content.getVote().getDown() + 1);
+            view.getUnsupportImageView().setSelected(false);
+        }
+        view.setDataText(content);
+    }
+
+    @Override
+    public void onUnsupportClick(ContentDetailView view, Content content)
+    {
+        final int userState = content.getUserState();
+        content.setUserState(Content.STATE_UNSUPPORT);
+        view.getUnsupportImageView().setSelected(true);
+        view.startAnim(view.getUnsupportImageView());
+        if (userState == Content.STATE_NONE)
+        {
+            content.getVote().setDown(content.getVote().getDown() - 1);
+        } else if (userState == Content.STATE_SUPPORT)
+        {
+            content.getVote().setUp(content.getVote().getUp() - 1);
+            content.getVote().setDown(content.getVote().getDown() - 1);
+            view.getSupportImageView().setSelected(false);
+        }
+        view.setDataText(content);
     }
 
     @Override
