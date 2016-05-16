@@ -21,3 +21,31 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+def supportLibraryVersion = '23.3.0'
+
+// Define versions in a single place
+ext {
+    versionCode = 1
+    versionName = '1.0'
+
+    // Sdk and tools
+    minSdkVersion = 17
+    targetSdkVersion = 23
+    compileSdkVersion = 23
+    buildToolsVersion = '23.0.3'
+
+
+    // App dependencies
+    libSupportAppCompat = "com.android.support:appcompat-v7:${supportLibraryVersion}"
+    libSupportV4 = "com.android.support:support-v4:${supportLibraryVersion}"
+    libSupportDesign = "com.android.support:design:${supportLibraryVersion}"
+    //Fresco
+    libFresco = 'com.facebook.fresco:fresco:0.10.0'
+    //Okhttp
+    libOkhttp = 'com.squareup.okhttp3:okhttp:3.2.0'
+    //JUnit
+    libJUnit = 'junit:junit:4.12'
+}
+
+

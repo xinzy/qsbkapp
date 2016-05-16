@@ -8,6 +8,7 @@ import com.xinzy.qsbk.common.api.Apis;
 import com.xinzy.qsbk.common.model.Content;
 import com.xinzy.qsbk.common.util.Logger;
 import com.xinzy.qsbk.logic.main.fragment.IContentView;
+import com.xinzy.qsbk.logic.main.view.ContentItemView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,6 +36,7 @@ public class ContentPresenter implements IContentPresenter
     @Override
     public void start()
     {
+        loading(1);
     }
 
     @Override
@@ -103,5 +105,43 @@ public class ContentPresenter implements IContentPresenter
         });
 
 
+    }
+
+    @Override
+    public void onSupportClick(ContentItemView itemView, Content content)
+    {
+        final int userState = content.getUserState();
+        content.setUserState(Content.STATE_SUPPORT);
+        itemView.getSupportImageView().setSelected(true);
+        itemView.startAnim(itemView.getSupportImageView());
+        if (userState == Content.STATE_NONE)
+        {
+            content.getVote().setUp(content.getVote().getUp() + 1);
+        } else if (userState == Content.STATE_UNSUPPORT)
+        {
+            content.getVote().setUp(content.getVote().getUp() + 1);
+            content.getVote().setDown(content.getVote().getDown() + 1);
+            itemView.getUnsupportImageView().setSelected(false);
+        }
+        itemView.setDataText(content);
+    }
+
+    @Override
+    public void onUnsupportClick(ContentItemView itemView, Content content)
+    {
+        final int userState = content.getUserState();
+        content.setUserState(Content.STATE_UNSUPPORT);
+        itemView.getUnsupportImageView().setSelected(true);
+        itemView.startAnim(itemView.getUnsupportImageView());
+        if (userState == Content.STATE_NONE)
+        {
+            content.getVote().setDown(content.getVote().getDown() - 1);
+        } else if (userState == Content.STATE_SUPPORT)
+        {
+            content.getVote().setUp(content.getVote().getUp() - 1);
+            content.getVote().setDown(content.getVote().getDown() - 1);
+            itemView.getSupportImageView().setSelected(false);
+        }
+        itemView.setDataText(content);
     }
 }

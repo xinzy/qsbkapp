@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.xinzy.qsbk.logic.main.view.ContentItemView xmlns:android="http://schemas.android.com/apk/res/android"
-                                                xmlns:tools="http://schemas.android.com/tools"
-                                                xmlns:fresco="http://schemas.android.com/apk/res-auto"
-                                                android:id="@+id/content_item_layout"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="match_parent"
-                                                android:paddingStart="@dimen/activity_horizontal_margin"
-                                                android:paddingEnd="@dimen/activity_horizontal_margin"
-                                                android:background="@drawable/simple_bg"
-                                                android:orientation="vertical">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:paddingEnd="@dimen/activity_horizontal_margin"
+              android:paddingStart="@dimen/activity_horizontal_margin">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,8 +18,8 @@
             android:id="@+id/avatar_img"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            fresco:placeholderImage="@mipmap/default_avatar"
             fresco:failureImage="@mipmap/default_avatar"
+            fresco:placeholderImage="@mipmap/default_avatar"
             fresco:roundAsCircle="true"
             fresco:roundedCornerRadius="180dp"/>
 
@@ -66,9 +64,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        fresco:viewAspectRatio="0.5"
+        android:visibility="gone"
         fresco:actualImageScaleType="fitXY"
-        android:visibility="gone"/>
+        fresco:viewAspectRatio="0.5"/>
 
     <TextView
         android:id="@+id/data_text"
@@ -98,13 +96,6 @@
             android:background="@android:color/transparent"
             android:src="@drawable/ic_unsupport_sel"/>
 
-        <ImageButton
-            android:id="@+id/comment_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/simple_bg"
-            android:src="@drawable/operation_comments"/>
-
         <android.support.v4.widget.Space
             android:layout_width="0dp"
             android:layout_height="1dp"
@@ -117,4 +108,4 @@
             android:background="@drawable/simple_bg"
             android:src="@drawable/operation_share"/>
     </LinearLayout>
-</com.xinzy.qsbk.logic.main.view.ContentItemView>
+</LinearLayout>

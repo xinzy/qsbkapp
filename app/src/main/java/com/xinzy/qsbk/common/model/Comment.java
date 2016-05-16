@@ -54,6 +54,56 @@ public class Comment implements Parcelable
         }
     }
 
+    public int getId()
+    {
+        return id;
+    }
+
+    public String getContent()
+    {
+        return content;
+    }
+
+    public int getParentId()
+    {
+        return parentId;
+    }
+
+    public boolean isLiked()
+    {
+        return liked;
+    }
+
+    public int getLikeCount()
+    {
+        return likeCount;
+    }
+
+    public int getFloor()
+    {
+        return floor;
+    }
+
+    public long getCreated()
+    {
+        return created;
+    }
+
+    public User getUser()
+    {
+        return user;
+    }
+
+    public Comment getRefer()
+    {
+        return refer;
+    }
+
+    public String getTime()
+    {
+        return Utils.timeFormat(created, "MM-dd HH:mm");
+    }
+
     public void setId(int id)
     {
         this.id = id;

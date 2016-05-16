@@ -25,7 +25,13 @@ public class User implements Parcelable
 
     public User(JSONObject json)
     {
-        id = json.optInt("uid");
+        if (json.has("uid"))
+        {
+            id = json.optInt("uid");
+        } else if (json.has("id"))
+        {
+            id = json.optInt("id");
+        }
         username = json.optString("login");
         icon = json.optString("icon");
         state = json.optString("state");

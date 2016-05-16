@@ -1,10 +1,11 @@
-package com.xinzy.qsbk.logic.main.view;
+package com.xinzy.qsbk.logic.content.view;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,45 +16,44 @@ import com.xinzy.qsbk.R;
 import com.xinzy.qsbk.common.model.Content;
 import com.xinzy.qsbk.common.model.ImageSize;
 import com.xinzy.qsbk.common.model.User;
-import com.xinzy.qsbk.common.ui.ItemView;
 
 /**
- * Created by Xinzy on 2016/5/9.
+ * Created by gaodun on 2016/5/16.
  */
-public class ContentItemView extends LinearLayout implements ItemView, View.OnClickListener
+public class ContentDetailView extends LinearLayout implements View.OnClickListener
 {
+
     protected Context mContext;
 
     private SimpleDraweeView mAvatarImageView;
-    private TextView         usernameTextView;
+    private TextView usernameTextView;
     private TextView         stateTextView;
     private TextView         contentTextView;
     private SimpleDraweeView contentImageView;
-    private ImageView        supportImageView;
+    private ImageView supportImageView;
     private ImageView        unsupportImageView;
 
     private TextView           dataTextView;
     private OnItemViewListener mOnItemViewListener;
-    private int                mPosition;
-    private Content            mContent;
+    private Content mContent;
 
-    private static final int[] IDS = {R.id.content_item_layout, R.id.share_image, R.id.comment_image,};
+    private static final int[] IDS = {R.id.share_image, };
 
-    public ContentItemView(Context context)
+    public ContentDetailView(Context context)
     {
         super(context);
 
         init(context);
     }
 
-    public ContentItemView(Context context, AttributeSet attrs)
+    public ContentDetailView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
 
         init(context);
     }
 
-    public ContentItemView(Context context, AttributeSet attrs, int defStyleAttr)
+    public ContentDetailView(Context context, AttributeSet attrs, int defStyleAttr)
     {
         super(context, attrs, defStyleAttr);
 
@@ -63,16 +63,8 @@ public class ContentItemView extends LinearLayout implements ItemView, View.OnCl
     private void init(Context context)
     {
         mContext = context;
-    }
+        LayoutInflater.from(mContext).inflate(R.layout.view_content_detail, this);
 
-    public void setOnItemViewListener(OnItemViewListener mOnItemViewListener)
-    {
-        this.mOnItemViewListener = mOnItemViewListener;
-    }
-
-    @Override
-    public void onInit()
-    {
         mAvatarImageView = (SimpleDraweeView) findViewById(R.id.avatar_img);
         mAvatarImageView.setOnClickListener(this);
         usernameTextView = (TextView) findViewById(R.id.username_text);
@@ -94,12 +86,14 @@ public class ContentItemView extends LinearLayout implements ItemView, View.OnCl
         }
     }
 
-    @Override
-    public void onSetData(Object object, int position)
+    public void setOnItemViewListener(OnItemViewListener mOnItemViewListener)
     {
-        Content content = (Content) object;
+        this.mOnItemViewListener = mOnItemViewListener;
+    }
+
+    public void setData(Content content)
+    {
         mContent = content;
-        mPosition = position;
 
         User user = content.getUser();
         usernameTextView.setText(user != null ? user.getUsername() : getResources().getString(R.string.anonymous));
@@ -163,6 +157,12 @@ public class ContentItemView extends LinearLayout implements ItemView, View.OnCl
     }
 
     @Override
+    protected void onDetachedFromWindow()
+    {
+        super.onDetachedFromWindow();
+        onClose();
+    }
+
     public void onClose()
     {
 
@@ -173,19 +173,12 @@ public class ContentItemView extends LinearLayout implements ItemView, View.OnCl
     {
         switch (v.getId())
         {
-        case R.id.content_item_layout:
-
-            if (mOnItemViewListener != null)
-            {
-                mOnItemViewListener.onItemClick(this, mContent, mPosition);
-            }
-            break;
 
         case R.id.avatar_img:
 
             if (mOnItemViewListener != null)
             {
-                mOnItemViewListener.onAvatarClick(this, mContent, mPosition);
+                mOnItemViewListener.onAvatarClick(this, mContent);
             }
             break;
 
@@ -193,7 +186,7 @@ public class ContentItemView extends LinearLayout implements ItemView, View.OnCl
 
             if (mOnItemViewListener != null)
             {
-                mOnItemViewListener.onImageClick(this, mContent, mPosition);
+                mOnItemViewListener.onImageClick(this, mContent);
             }
             break;
 
@@ -201,7 +194,7 @@ public class ContentItemView extends LinearLayout implements ItemView, View.OnCl
 
             if (mOnItemViewListener != null)
             {
-                mOnItemViewListener.onSupportClick(ContentItemView.this, mContent, mPosition);
+                mOnItemViewListener.onSupportClick(this, mContent);
             }
             break;
 
@@ -209,15 +202,7 @@ public class ContentItemView extends LinearLayout implements ItemView, View.OnCl
 
             if (mOnItemViewListener != null)
             {
-                mOnItemViewListener.onUnsupportClick(ContentItemView.this, mContent, mPosition);
-            }
-            break;
-
-        case R.id.comment_image:
-
-            if (mOnItemViewListener != null)
-            {
-                mOnItemViewListener.onCommentClick(ContentItemView.this, mContent, mPosition);
+                mOnItemViewListener.onUnsupportClick(this, mContent);
             }
             break;
 
@@ -225,7 +210,7 @@ public class ContentItemView extends LinearLayout implements ItemView, View.OnCl
 
             if (mOnItemViewListener != null)
             {
-                mOnItemViewListener.onShareClick(ContentItemView.this, mContent, mPosition);
+                mOnItemViewListener.onShareClick(this, mContent);
             }
             break;
         }
@@ -261,18 +246,14 @@ public class ContentItemView extends LinearLayout implements ItemView, View.OnCl
 
     public interface OnItemViewListener
     {
-        void onItemClick(ContentItemView itemView, Content content, int position);
+        void onAvatarClick(ContentDetailView itemView, Content content);
 
-        void onAvatarClick(ContentItemView itemView, Content content, int position);
+        void onImageClick(ContentDetailView itemView, Content content);
 
-        void onImageClick(ContentItemView itemView, Content content, int position);
+        void onSupportClick(ContentDetailView itemView, Content content);
 
-        void onSupportClick(ContentItemView itemView, Content content, int position);
+        void onUnsupportClick(ContentDetailView itemView, Content content);
 
-        void onUnsupportClick(ContentItemView itemView, Content content, int position);
-
-        void onCommentClick(ContentItemView itemView, Content content, int position);
-
-        void onShareClick(ContentItemView itemView, Content content, int position);
+        void onShareClick(ContentDetailView itemView, Content content);
     }
 }

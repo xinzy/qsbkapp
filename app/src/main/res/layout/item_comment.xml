@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.xinzy.qsbk.logic.content.view.DetailItemView xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal"
+              android:paddingBottom="8dp"
+              android:paddingEnd="16dp"
+              android:paddingStart="16dp"
+              android:paddingTop="8dp">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/detail_avatar_view"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        fresco:placeholderImage="@mipmap/default_avatar"
+        fresco:failureImage="@mipmap/default_avatar"
+        fresco:roundAsCircle="true"
+        fresco:roundedCornerRadius="180dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="4dp">
+
+            <TextView
+                android:id="@+id/detail_username_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textColor="#535559"
+                tools:text="用户名"/>
+
+            <TextView
+                android:id="@+id/detail_floor_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:drawableEnd="@drawable/ic_more"
+                android:drawablePadding="4dp"
+                android:textSize="12sp"
+                android:textColor="#CFCFCF"
+                tools:text="1"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/detail_content_tet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="14sp"
+            android:textColor="#636251"
+            tools:text="内容啦啦啦啦啦"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/detail_time_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="02-12"
+                android:textSize="12sp"
+                android:textColor="#CFCFCF"/>
+
+            <TextView
+                android:id="@+id/detail_praise_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_praise_sel"
+                android:drawablePadding="8dp"
+                tools:text="1"
+                android:textSize="12sp"
+                android:textColor="#CFCFCF"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</com.xinzy.qsbk.logic.content.view.DetailItemView>

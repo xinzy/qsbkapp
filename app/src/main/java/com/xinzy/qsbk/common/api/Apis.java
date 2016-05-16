@@ -29,5 +29,10 @@ public class Apis
         return String.format(CONTENT_URL, type, page, COUNTER.getAndIncrement(), getR());
     }
 
+    private static final String COMMENT_URL = BASE_API + "/article/%1$s/comments?page=%2$s&count=50&rqcnt=%3$s&r=%4$s";
+    public static final String getCommentListApi(int artic, int page)
+    {
+        return String.format(COMMENT_URL, artic, page, COUNTER.getAndIncrement(), getR());
+    }
 
 }
