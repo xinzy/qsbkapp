@@ -3,6 +3,7 @@ package com.xinzy.qsbk.logic.content.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.xinzy.qsbk.R;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 public class DetailFragment extends AbsBaseFragment implements IDetailView,
         SwipeRefreshLayout.OnRefreshListener, ContentDetailView.OnItemViewListener,
-        DetailItemView.ItemViewListener
+        DetailItemView.ItemViewListener, AbsListView.OnScrollListener
 {
     private static final String KEY_CONTENT = "CONTENT";
 
@@ -63,6 +64,7 @@ public class DetailFragment extends AbsBaseFragment implements IDetailView,
         mRefreshLayout.setOnRefreshListener(this);
 
         mListView = (ListView) findViewById(R.id.comment_listview);
+        mListView.setOnScrollListener(this);
         mHeaderView = new ContentDetailView(getContext());
         mHeaderView.setData(mContent);
         mHeaderView.setOnItemViewListener(this);
@@ -200,5 +202,31 @@ public class DetailFragment extends AbsBaseFragment implements IDetailView,
     public void onPraiseClick(DetailItemView view, Comment comment)
     {
 
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState)
+    {
+        switch (scrollState)
+        {
+        case AbsListView.OnScrollListener.SCROLL_STATE_IDLE: // 滚动停止
+            if (view.getLastVisiblePosition() == (view.getCount() - 1))
+            {
+                loading(false);
+            } else if (view.getFirstVisiblePosition() == 0)
+            {
+                // 滚动到顶部
+            }
+            break;
+        case AbsListView.OnScrollListener.SCROLL_STATE_FLING:  // 开始滚动
+            break;
+        case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:// 正在滚动
+            break;
+        }
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
+    {
     }
 }
