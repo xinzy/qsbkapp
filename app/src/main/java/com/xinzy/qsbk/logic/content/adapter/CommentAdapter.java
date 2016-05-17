@@ -29,6 +29,7 @@ public class CommentAdapter extends AbsListAdapter<Comment>
     protected void onSetData(View view, int position)
     {
         DetailItemView itemView = (DetailItemView) view;
+        itemView.setItemViewListener(mItemViewListener);
         itemView.onSetData(mData.get(position), position);
     }
 }

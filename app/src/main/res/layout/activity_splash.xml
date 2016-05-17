@@ -6,11 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".SplashActivity">
 
-    <ImageView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFF"
+        android:layout_height="match_parent"
         android:layout_marginTop="128dp"
-        android:src="@drawable/splash_logo" />
+        android:background="@drawable/splash_logo"/>
 
 </RelativeLayout>

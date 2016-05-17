@@ -33,6 +33,12 @@ public class DetailPresenter implements IDetailPresenter
     }
 
     @Override
+    public void start()
+    {
+        loading(1);
+    }
+
+    @Override
     public void setContent(Content content)
     {
         this.mContent = content;
@@ -127,8 +133,11 @@ public class DetailPresenter implements IDetailPresenter
     }
 
     @Override
-    public void start()
+    public void showReferDialog(Comment comment)
     {
-        loading(1);
+        if (comment.getRefer() != null)
+        {
+            mDetailView.showReferDialog(comment.getRefer());
+        }
     }
 }

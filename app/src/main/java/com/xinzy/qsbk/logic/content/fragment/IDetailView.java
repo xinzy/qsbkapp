@@ -17,4 +17,6 @@ public interface IDetailView extends IBaseView<IDetailPresenter>
     void loadResult(boolean success);
 
     void showDataAfterLoad(List<Comment> contents, boolean refresh);
+
+    void showReferDialog(Comment comment);
 }

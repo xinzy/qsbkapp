@@ -6,17 +6,14 @@
                                                   android:layout_height="match_parent"
                                                   android:background="@drawable/simple_bg"
                                                   android:orientation="horizontal"
-                                                  android:paddingBottom="8dp"
-                                                  android:paddingEnd="16dp"
-                                                  android:paddingStart="16dp"
-                                                  android:paddingTop="8dp">
+                                                  android:padding="16dp">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/detail_avatar_view"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        fresco:failureImage="@mipmap/default_avatar"
-        fresco:placeholderImage="@mipmap/default_avatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        fresco:failureImage="@drawable/default_avatar"
+        fresco:placeholderImage="@drawable/default_avatar"
         fresco:roundAsCircle="true"
         fresco:roundedCornerRadius="180dp"/>
 

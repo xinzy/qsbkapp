@@ -68,6 +68,7 @@ public class DetailFragment extends AbsBaseFragment implements IDetailView,
         mHeaderView.setOnItemViewListener(this);
         mListView.addHeaderView(mHeaderView);
         mCommentAdapter = new CommentAdapter();
+        mCommentAdapter.setItemViewListener(this);
         mListView.setAdapter(mCommentAdapter);
 
         new Handler().postDelayed(new Runnable()
@@ -148,6 +149,12 @@ public class DetailFragment extends AbsBaseFragment implements IDetailView,
     }
 
     @Override
+    public void showReferDialog(Comment comment)
+    {
+        ReferFragment.newInstance(comment).show(getChildFragmentManager());
+    }
+
+    @Override
     public void onRefresh()
     {
         hasMore = true;
@@ -186,7 +193,7 @@ public class DetailFragment extends AbsBaseFragment implements IDetailView,
     @Override
     public void onContentClick(DetailItemView itemView, Comment comment)
     {
-
+        mPresenter.showReferDialog(comment);
     }
 
     @Override

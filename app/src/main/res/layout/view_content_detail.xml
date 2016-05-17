@@ -18,8 +18,8 @@
             android:id="@+id/avatar_img"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            fresco:failureImage="@mipmap/default_avatar"
-            fresco:placeholderImage="@mipmap/default_avatar"
+            fresco:failureImage="@drawable/default_avatar"
+            fresco:placeholderImage="@drawable/default_avatar"
             fresco:roundAsCircle="true"
             fresco:roundedCornerRadius="180dp"/>
 
@@ -30,7 +30,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
-            android:drawableLeft="@mipmap/state_fresh"
+            android:drawableLeft="@drawable/state_fresh"
             android:drawablePadding="4dp"
             android:textColor="#969696"
             android:textSize="12sp"

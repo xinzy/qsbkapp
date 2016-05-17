@@ -1,6 +1,7 @@
 package com.xinzy.qsbk.logic.content.presenter;
 
 import com.xinzy.qsbk.common.base.IBasePresenter;
+import com.xinzy.qsbk.common.model.Comment;
 import com.xinzy.qsbk.common.model.Content;
 import com.xinzy.qsbk.logic.content.view.ContentDetailView;
 
@@ -17,4 +18,6 @@ public interface IDetailPresenter extends IBasePresenter
     void onSupportClick(ContentDetailView view, Content content);
 
     void onUnsupportClick(ContentDetailView view, Content content);
+
+    void showReferDialog(Comment comment);
 }

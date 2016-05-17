@@ -104,13 +104,13 @@ public class ContentDetailView extends LinearLayout implements View.OnClickListe
 
         if (content.getType() == Content.Type.Hot)
         {
-            Drawable drawable = getResources().getDrawable(R.mipmap.state_hot);
+            Drawable drawable = getResources().getDrawable(R.drawable.state_hot);
             drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
             stateTextView.setCompoundDrawables(null, null, drawable, null);
             stateTextView.setText(R.string.type_hot);
         } else if (content.getType() == Content.Type.Refresh)
         {
-            Drawable drawable = getResources().getDrawable(R.mipmap.state_fresh);
+            Drawable drawable = getResources().getDrawable(R.drawable.state_fresh);
             drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
             stateTextView.setCompoundDrawables(null, null, drawable, null);
             stateTextView.setText(R.string.type_flush);
