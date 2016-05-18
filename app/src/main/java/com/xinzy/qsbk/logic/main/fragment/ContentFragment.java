@@ -9,6 +9,7 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.xinzy.qsbk.ContentActivity;
+import com.xinzy.qsbk.ImageActivity;
 import com.xinzy.qsbk.MainActivity;
 import com.xinzy.qsbk.R;
 import com.xinzy.qsbk.common.base.AbsBaseFragment;
@@ -232,7 +233,7 @@ public class ContentFragment extends AbsBaseFragment implements
     @Override
     public void onImageClick(ContentItemView itemView, Content content, int position)
     {
-
+        ImageActivity.start(getContext(), content.getMediumImage());
     }
 
     @Override
