@@ -43,6 +43,8 @@ public class Content implements Parcelable
 
     private int userState;
 
+    private int positionInList;
+
     public Content() {}
 
     public Content(JSONObject json)
@@ -316,6 +318,16 @@ public class Content implements Parcelable
         this.userState = userState;
     }
 
+    public int getPositionInList()
+    {
+        return positionInList;
+    }
+
+    public void setPositionInList(int positionInList)
+    {
+        this.positionInList = positionInList;
+    }
+
     public static enum Type
     {
         Null(""),
@@ -407,6 +419,7 @@ public class Content implements Parcelable
         dest.writeString(this.picUrl);
         dest.writeInt(this.loop);
         dest.writeInt(this.userState);
+        dest.writeInt(positionInList);
     }
 
     protected Content(Parcel in)
@@ -434,6 +447,7 @@ public class Content implements Parcelable
         this.picUrl = in.readString();
         this.loop = in.readInt();
         this.userState = in.readInt();
+        this.positionInList = in.readInt();
     }
 
     public static final Creator<Content> CREATOR = new Creator<Content>()

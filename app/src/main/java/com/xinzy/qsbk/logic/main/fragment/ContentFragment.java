@@ -17,6 +17,9 @@ import com.xinzy.qsbk.logic.main.adapter.ContentAdapter;
 import com.xinzy.qsbk.logic.main.presenter.IContentPresenter;
 import com.xinzy.qsbk.logic.main.view.ContentItemView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.List;
 
 /**
@@ -82,6 +85,7 @@ public class ContentFragment extends AbsBaseFragment implements
         mContentAdapter.setOnItemViewListener(this);
         mListView.setAdapter(mContentAdapter);
 
+        EventBus.getDefault().register(this);
         new Handler().postDelayed(new Runnable()
         {
             @Override
@@ -90,6 +94,13 @@ public class ContentFragment extends AbsBaseFragment implements
                 mContentPresenter.start();
             }
         }, 150);
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     private void loading(boolean refresh)
@@ -102,6 +113,19 @@ public class ContentFragment extends AbsBaseFragment implements
                 page = 1;
             }
             mContentPresenter.loading(page);
+        }
+    }
+
+    @Subscribe (sticky = true)
+    public void onEventSupport(Content message)
+    {
+        final int position = message.getPositionInList();
+        if (position >= 0 && position < mContentAdapter.getCount())
+        {
+            mContentAdapter.getItem(position).setUserState(message.getUserState());
+            mContentAdapter.getItem(position).getVote().setUp(message.getVote().getUp());
+            mContentAdapter.getItem(position).getVote().setDown(message.getVote().getDown());
+            mContentAdapter.notifyDataSetChanged();
         }
     }
 
@@ -195,6 +219,7 @@ public class ContentFragment extends AbsBaseFragment implements
     @Override
     public void onItemClick(ContentItemView itemView, Content content, int position)
     {
+        content.setPositionInList(position);
         ContentActivity.start(getContext(), content);
     }
 
@@ -225,7 +250,8 @@ public class ContentFragment extends AbsBaseFragment implements
     @Override
     public void onCommentClick(ContentItemView itemView, Content content, int position)
     {
-
+        content.setPositionInList(position);
+        ContentActivity.start(getContext(), content);
     }
 
     @Override

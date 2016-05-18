@@ -16,6 +16,7 @@ public class ContentActivity extends AppCompatActivity
 {
 
     private static final String KEY_CONTENT = "CONTENT";
+    private static final String KEY_POSITION = "POSITION";
 
     private IDetailPresenter mDetailPresenter;
     private Content          mContent;

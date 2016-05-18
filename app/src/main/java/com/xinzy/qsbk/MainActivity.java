@@ -3,8 +3,10 @@ package com.xinzy.qsbk;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private ContentFragmentCallback mContentFragmentCallback;
     private String                  mCurrentDisplayType;
+    private long lastBackPressedTime;
 
     public static void start(Context context)
     {
@@ -89,7 +92,15 @@ public class MainActivity extends AppCompatActivity implements
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else
         {
-            super.onBackPressed();
+            final long time = SystemClock.uptimeMillis();
+            if (time - lastBackPressedTime <= 2000)
+            {
+                super.onBackPressed();
+            } else
+            {
+                lastBackPressedTime = time;
+                Snackbar.make(mDrawerLayout, "再按一次返回键退出程序~", Snackbar.LENGTH_LONG).show();
+            }
         }
     }
 

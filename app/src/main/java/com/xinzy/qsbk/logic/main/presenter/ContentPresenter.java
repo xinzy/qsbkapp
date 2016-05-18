@@ -55,36 +55,27 @@ public class ContentPresenter implements IContentPresenter
             @Override
             public List<Content> parseNetworkResponse(Response response) throws Exception
             {
-                String data = response.body().string();
+                JSONObject rootJson = new JSONObject(response.body().string());
 
-                try
+                if (rootJson.optInt("err") == 0)
                 {
-                    JSONObject rootJson = new JSONObject(data);
-                    final int  status   = rootJson.optInt("err");
+                    JSONArray array = rootJson.optJSONArray("items");
 
-                    if (status == 0)
+                    if (array != null && array.length() > 0)
                     {
-                        JSONArray array = rootJson.optJSONArray("items");
+                        final int     length = array.length();
+                        List<Content> lists  = new ArrayList<>(length);
 
-                        if (array != null && array.length() > 0)
+                        for (int i = 0; i < length; i++)
                         {
-                            List<Content> lists  = new ArrayList<>();
-                            final int     length = array.length();
+                            JSONObject json    = array.optJSONObject(i);
+                            Content    content = Content.parse(json);
 
-                            for (int i = 0; i < length; i++)
-                            {
-                                JSONObject json    = array.optJSONObject(i);
-                                Content    content = Content.parse(json);
-
-                                lists.add(content);
-                            }
-
-                            return lists;
+                            lists.add(content);
                         }
+
+                        return lists;
                     }
-                } catch (Exception e)
-                {
-                    Logger.e("loading data", e);
                 }
                 return null;
             }

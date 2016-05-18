@@ -22,14 +22,14 @@ public abstract class AbsListAdapter<T> extends BaseAdapter
 
     public AbsListAdapter()
     {
-        mData = new ArrayList<>(0);
+        mData = new ArrayList<>();
     }
 
     public AbsListAdapter(@Nullable List<T> lists)
     {
         if (lists == null)
         {
-            mData = new ArrayList<>(0);
+            mData = new ArrayList<>();
         } else
         {
             mData = lists;
@@ -43,8 +43,11 @@ public abstract class AbsListAdapter<T> extends BaseAdapter
 
     public void setData(@NonNull List<T> lists)
     {
-        mData = lists;
-        refresh();
+        if (lists != null)
+        {
+            mData = lists;
+            refresh();
+        }
     }
 
     public void clear()
@@ -56,20 +59,30 @@ public abstract class AbsListAdapter<T> extends BaseAdapter
     public void replace(@NonNull List<T> lists)
     {
         mData.clear();
-        mData.addAll(lists);
+
+        if (lists != null)
+        {
+            mData.addAll(lists);
+        }
         refresh();
     }
 
     public void add(@NonNull T t)
     {
-        mData.add(t);
-        refresh();
+        if (t != null)
+        {
+            mData.add(t);
+            refresh();
+        }
     }
 
     public void addAll(@NonNull List<T> lists)
     {
-        mData.addAll(lists);
-        refresh();
+        if (lists != null)
+        {
+            mData.addAll(lists);
+            refresh();
+        }
     }
 
     public void remove(int index)

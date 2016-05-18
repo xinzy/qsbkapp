@@ -28,4 +28,5 @@ dependencies {
     compile rootProject.ext.libSupportV4
     compile rootProject.ext.libSupportDesign
     compile rootProject.ext.libFresco
+    compile rootProject.ext.libEventBus
 }

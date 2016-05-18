@@ -239,7 +239,7 @@ public class ContentDetailView extends LinearLayout implements View.OnClickListe
     public void startAnim(View view)
     {
         ObjectAnimator animator = ObjectAnimator.ofFloat(view, "alpha", 1.0f, 0.5f, 1.0f);
-        animator.setDuration(300);
+        animator.setDuration(800);
         animator.setRepeatCount(1);
         animator.start();
     }
