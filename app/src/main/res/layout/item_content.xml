@@ -20,6 +20,7 @@
             android:id="@+id/avatar_img"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            fresco:fadeDuration="300"
             fresco:placeholderImage="@drawable/default_avatar"
             fresco:failureImage="@drawable/default_avatar"
             fresco:roundAsCircle="true"
@@ -66,6 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
+        fresco:fadeDuration="300"
         fresco:viewAspectRatio="0.5"
         fresco:actualImageScaleType="fitXY"
         android:visibility="gone"/>

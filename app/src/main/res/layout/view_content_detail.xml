@@ -65,6 +65,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:visibility="gone"
+        fresco:fadeDuration="300"
         fresco:actualImageScaleType="fitXY"
         fresco:viewAspectRatio="0.5"/>
 

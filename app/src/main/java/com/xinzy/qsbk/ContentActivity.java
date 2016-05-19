@@ -1,11 +1,14 @@
 package com.xinzy.qsbk;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.xinzy.qsbk.common.model.Content;
 import com.xinzy.qsbk.logic.content.fragment.DetailFragment;
@@ -21,11 +24,12 @@ public class ContentActivity extends AppCompatActivity
     private IDetailPresenter mDetailPresenter;
     private Content          mContent;
 
-    public static void start(Context context, Content content)
+    public static void start(Activity activity, View view, Content content)
     {
-        Intent starter = new Intent(context, ContentActivity.class);
+        ActivityOptionsCompat compat  = ActivityOptionsCompat.makeScaleUpAnimation(view, view.getWidth() / 2, view.getHeight() / 2, 0, 0);
+        Intent                starter = new Intent(activity, ContentActivity.class);
         starter.putExtra(KEY_CONTENT, content);
-        context.startActivity(starter);
+        ActivityCompat.startActivity(activity, starter, compat.toBundle());
     }
 
     @Override
@@ -49,7 +53,7 @@ public class ContentActivity extends AppCompatActivity
         switch (item.getItemId())
         {
         case android.R.id.home:
-            finish();
+            ActivityCompat.finishAfterTransition(this);
             return true;
         }
 

@@ -221,7 +221,7 @@ public class ContentFragment extends AbsBaseFragment implements
     public void onItemClick(ContentItemView itemView, Content content, int position)
     {
         content.setPositionInList(position);
-        ContentActivity.start(getContext(), content);
+        ContentActivity.start(getActivity(), itemView, content);
     }
 
     @Override
@@ -252,7 +252,7 @@ public class ContentFragment extends AbsBaseFragment implements
     public void onCommentClick(ContentItemView itemView, Content content, int position)
     {
         content.setPositionInList(position);
-        ContentActivity.start(getContext(), content);
+        ContentActivity.start(getActivity(), itemView, content);
     }
 
     @Override
