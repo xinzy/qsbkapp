@@ -233,7 +233,7 @@ public class ContentFragment extends AbsBaseFragment implements
     @Override
     public void onImageClick(ContentItemView itemView, Content content, int position)
     {
-        ImageActivity.start(getContext(), content.getMediumImage());
+        ImageActivity.start(getActivity(), itemView.getContentImageView(), content.getMediumImage());
     }
 
     @Override

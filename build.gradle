@@ -46,6 +46,8 @@ ext {
     libOkhttp = 'com.squareup.okhttp3:okhttp:3.2.0'
     //JUnit
     libJUnit = 'junit:junit:4.12'
+    //EventBus
+    libEventBus = 'org.greenrobot:eventbus:3.0.0'
 }
 
 

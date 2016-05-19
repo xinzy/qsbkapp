@@ -251,6 +251,11 @@ public class ContentItemView extends LinearLayout implements ItemView, View.OnCl
         return unsupportImageView;
     }
 
+    public SimpleDraweeView getContentImageView()
+    {
+        return contentImageView;
+    }
+
     public void startAnim(View view)
     {
         ObjectAnimator animator = ObjectAnimator.ofFloat(view, "alpha", 1.0f, 0.5f, 1.0f);
