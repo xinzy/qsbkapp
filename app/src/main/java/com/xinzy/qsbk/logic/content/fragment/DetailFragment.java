@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
+import com.xinzy.qsbk.ImageActivity;
 import com.xinzy.qsbk.R;
 import com.xinzy.qsbk.common.base.AbsBaseFragment;
 import com.xinzy.qsbk.common.model.Comment;
@@ -92,7 +93,10 @@ public class DetailFragment extends AbsBaseFragment implements IDetailView,
     @Override
     public void onImageClick(ContentDetailView itemView, Content content)
     {
-
+        if (content.getFormat() == Content.Format.Image)
+        {
+            ImageActivity.start(getActivity(), itemView.getContentImageView(), content.getMediumImage());
+        }
     }
 
     @Override

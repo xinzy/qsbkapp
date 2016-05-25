@@ -150,6 +150,18 @@ public class ContentDetailView extends LinearLayout implements View.OnClickListe
                 contentImageView.setAspectRatio(ratio);
                 contentImageView.setImageURI(Uri.parse(imgurl));
             }
+        } else if (content.getFormat() == Content.Format.Video)
+        {
+            if (content.getPicSize() != null)
+            {
+                contentImageView.setVisibility(View.VISIBLE);
+                float ratio = content.getPicSize().getWidth() * 1.0f / content.getPicSize().getHeight();
+                contentImageView.setAspectRatio(ratio);
+                contentImageView.setImageURI(Uri.parse(content.getPicUrl()));
+            } else
+            {
+                contentImageView.setVisibility(View.GONE);
+            }
         } else
         {
             contentImageView.setVisibility(View.GONE);
@@ -224,6 +236,11 @@ public class ContentDetailView extends LinearLayout implements View.OnClickListe
     public TextView getDataTextView()
     {
         return dataTextView;
+    }
+
+    public SimpleDraweeView getContentImageView()
+    {
+        return contentImageView;
     }
 
     public ImageView getSupportImageView()

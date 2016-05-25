@@ -19,13 +19,23 @@ public class ImageSize implements Parcelable
 
     public static ImageSize parse(JSONArray array)
     {
-        if (array != null && array.length() == 3)
+        if (array != null)
         {
-            ImageSize size = new ImageSize();
-            size.width = array.optInt(0);
-            size.height = array.optInt(1);
-            size.size = array.optInt(2);
-            return size;
+            if (array.length() == 3)
+            {
+                ImageSize size = new ImageSize();
+                size.width = array.optInt(0);
+                size.height = array.optInt(1);
+                size.size = array.optInt(2);
+                return size;
+            } else if (array.length() == 2)
+            {
+                ImageSize size = new ImageSize();
+                size.width = array.optInt(0);
+                size.height = array.optInt(1);
+                size.size = 0;
+                return size;
+            }
         }
 
         return null;
@@ -59,6 +69,12 @@ public class ImageSize implements Parcelable
     public void setSize(long size)
     {
         this.size = size;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "ImageSize{" + "width=" + width + ", height=" + height + ", size=" + size + '}';
     }
 
     @Override

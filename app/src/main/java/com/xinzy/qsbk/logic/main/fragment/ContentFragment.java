@@ -14,6 +14,7 @@ import com.xinzy.qsbk.MainActivity;
 import com.xinzy.qsbk.R;
 import com.xinzy.qsbk.common.base.AbsBaseFragment;
 import com.xinzy.qsbk.common.model.Content;
+import com.xinzy.qsbk.common.util.Logger;
 import com.xinzy.qsbk.logic.main.adapter.ContentAdapter;
 import com.xinzy.qsbk.logic.main.presenter.IContentPresenter;
 import com.xinzy.qsbk.logic.main.view.ContentItemView;
@@ -200,6 +201,7 @@ public class ContentFragment extends AbsBaseFragment implements
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
     {
+        Logger.e("firstVisibleItem = " + firstVisibleItem + "; visibleItemCount = " + visibleItemCount + "; totalItemCount = " + totalItemCount);
     }
 
     @Override
@@ -233,7 +235,10 @@ public class ContentFragment extends AbsBaseFragment implements
     @Override
     public void onImageClick(ContentItemView itemView, Content content, int position)
     {
-        ImageActivity.start(getActivity(), itemView.getContentImageView(), content.getMediumImage());
+        if (content.getFormat() == Content.Format.Image)
+        {
+            ImageActivity.start(getActivity(), itemView.getContentImageView(), content.getMediumImage());
+        }
     }
 
     @Override
