@@ -68,6 +68,8 @@ public class ContentFragment extends AbsBaseFragment implements
     {
         super.onAttach(context);
         type = getArguments().getString(PARAM_TYPE);
+
+        Logger.e("ContentFragment onAttach");
     }
 
     @Override
@@ -79,6 +81,8 @@ public class ContentFragment extends AbsBaseFragment implements
     @Override
     protected void initializeView()
     {
+        Logger.e("ContentFragment initializeView");
+
         mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_view);
         mRefreshLayout.setOnRefreshListener(this);
         mListView = (ListView) findViewById(R.id.content_listview);
@@ -201,7 +205,6 @@ public class ContentFragment extends AbsBaseFragment implements
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
     {
-        Logger.e("firstVisibleItem = " + firstVisibleItem + "; visibleItemCount = " + visibleItemCount + "; totalItemCount = " + totalItemCount);
     }
 
     @Override

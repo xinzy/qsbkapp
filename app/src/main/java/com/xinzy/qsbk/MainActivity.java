@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.xinzy.qsbk.common.util.Logger;
 import com.xinzy.qsbk.logic.main.fragment.ContentFragment;
 import com.xinzy.qsbk.logic.main.presenter.ContentPresenter;
 
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Logger.e("MainActivity start");
+
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
         mToolBar.setOnClickListener(new View.OnClickListener()
         {

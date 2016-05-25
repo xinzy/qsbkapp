@@ -31,6 +31,8 @@ public class ContentPresenter implements IContentPresenter
     {
         mContentView = view;
         mContentView.setPresenter(this);
+
+        Logger.e("ContentPresenter new ");
     }
 
     @Override
@@ -42,6 +44,7 @@ public class ContentPresenter implements IContentPresenter
     @Override
     public void loading(final int page)
     {
+        Logger.e("ContentPresenter loading ");
         if (page == 1)
         {
             mContentView.showLoading(true);
