@@ -1,12 +1,14 @@
 package com.xinzy.qsbk;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -44,11 +46,12 @@ public class MediaActivity extends AppCompatActivity implements SurfaceHolder.Ca
     private boolean isSurfaceCreated;
     private String mediaUrl;
 
-    public static void start(Context context, String url)
+    public static void start(Activity activity, View view, String url)
     {
-        Intent starter = new Intent(context, MediaActivity.class);
+        ActivityOptionsCompat compat  = ActivityOptionsCompat.makeScaleUpAnimation(view, view.getWidth() / 2, view.getHeight() / 2, 0, 0);
+        Intent                starter = new Intent(activity, MediaActivity.class);
         starter.putExtra(KEY_MEDIA_URL, url);
-        context.startActivity(starter);
+        ActivityCompat.startActivity(activity, starter, compat.toBundle());
     }
 
     @Override
@@ -106,7 +109,7 @@ public class MediaActivity extends AppCompatActivity implements SurfaceHolder.Ca
     {
         if (item.getItemId() == android.R.id.home)
         {
-            finish();
+            ActivityCompat.finishAfterTransition(this);
             return true;
         }
 

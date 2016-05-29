@@ -244,7 +244,7 @@ public class ContentFragment extends AbsBaseFragment implements
             ImageActivity.start(getActivity(), itemView.getContentImageView(), content.getMediumImage());
         } else if (content.getFormat() == Content.Format.Video)
         {
-            MediaActivity.start(getContext(), content.getHighUrl());
+            MediaActivity.start(getActivity(), itemView, content.getHighUrl());
         }
     }
 

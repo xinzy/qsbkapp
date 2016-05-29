@@ -99,7 +99,7 @@ public class DetailFragment extends AbsBaseFragment implements IDetailView,
             ImageActivity.start(getActivity(), itemView.getContentImageView(), content.getMediumImage());
         } else if (content.getFormat() == Content.Format.Video)
         {
-            MediaActivity.start(getContext(), content.getHighUrl());
+            MediaActivity.start(getActivity(), itemView, content.getHighUrl());
         }
     }
 
@@ -209,7 +209,12 @@ public class DetailFragment extends AbsBaseFragment implements IDetailView,
     @Override
     public void onPraiseClick(DetailItemView view, Comment comment)
     {
-
+        if (! comment.isLiked())
+        {
+            comment.setLiked(true);
+            comment.addLikeCount();
+            view.showPraise();
+        }
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.xinzy.qsbk.logic.content.view;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.xinzy.qsbk.R;
 import com.xinzy.qsbk.common.model.Comment;
 import com.xinzy.qsbk.common.model.User;
 import com.xinzy.qsbk.common.ui.ItemView;
+import com.xinzy.qsbk.common.widget.PraiseView;
 
 /**
  * Created by gaodun on 2016/5/16.
@@ -89,6 +91,7 @@ public class DetailItemView extends LinearLayout implements ItemView, View.OnCli
         contentTextView.setText(mComment.getContent());
         timeTextView.setText(mComment.getTime());
         praiseTextView.setText(mComment.getLikeCount() > 0 ? mComment.getLikeCount() + "" : "");
+        praiseTextView.setSelected(mComment.isLiked());
     }
 
     @Override
@@ -130,6 +133,15 @@ public class DetailItemView extends LinearLayout implements ItemView, View.OnCli
             }
             break;
         }
+    }
+
+    public void showPraise()
+    {
+        praiseTextView.setSelected(true);
+        praiseTextView.setText(mComment.getLikeCount() + "");
+        PraiseView view = new PraiseView(getContext());
+        view.setText("+1", Color.RED, 14);
+        view.show(praiseTextView);
     }
 
     public interface ItemViewListener

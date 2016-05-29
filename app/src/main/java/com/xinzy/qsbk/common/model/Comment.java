@@ -149,6 +149,11 @@ public class Comment implements Parcelable
         this.refer = refer;
     }
 
+    public void addLikeCount()
+    {
+        likeCount++;
+    }
+
     @Override
     public int describeContents() { return 0; }
 
