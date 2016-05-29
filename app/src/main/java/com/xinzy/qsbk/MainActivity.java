@@ -7,6 +7,9 @@ import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -32,7 +35,8 @@ public class MainActivity extends AppCompatActivity implements
 
     private ContentFragmentCallback mContentFragmentCallback;
     private String                  mCurrentDisplayType;
-    private long lastBackPressedTime;
+    private long                    lastBackPressedTime;
+    private Fragment                currentDisplayFragment;
 
     public static void start(Context context)
     {
@@ -190,11 +194,26 @@ public class MainActivity extends AppCompatActivity implements
 
     private void showFragment(String action)
     {
-        ContentFragment contentFragment = ContentFragment.newInstance(action);
-        mContentFragmentCallback = contentFragment;
-        mPresenter = new ContentPresenter(contentFragment);
+        FragmentManager     manager     = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        final Fragment      fragment    = manager.findFragmentByTag(action);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.content, contentFragment, action).commit();
+        if (currentDisplayFragment != null) transaction.hide(currentDisplayFragment);
+
+        if (fragment != null)
+        {
+            currentDisplayFragment = fragment;
+            transaction.show(fragment);
+        } else
+        {
+            ContentFragment contentFragment = ContentFragment.newInstance(action);
+            mContentFragmentCallback = contentFragment;
+            mPresenter = new ContentPresenter(contentFragment);
+            transaction.add(R.id.content, contentFragment, action);
+
+            currentDisplayFragment = contentFragment;
+        }
+        transaction.commit();
     }
 
     public interface ContentFragmentCallback

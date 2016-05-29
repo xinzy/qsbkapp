@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,7 +29,9 @@ public class ContentItemView extends LinearLayout implements ItemView, View.OnCl
     private TextView         usernameTextView;
     private TextView         stateTextView;
     private TextView         contentTextView;
+    private FrameLayout      contentImageContainer;
     private SimpleDraweeView contentImageView;
+    private ImageView        contentVideoTagView;
     private ImageView        supportImageView;
     private ImageView        unsupportImageView;
 
@@ -80,6 +83,8 @@ public class ContentItemView extends LinearLayout implements ItemView, View.OnCl
         contentTextView = (TextView) findViewById(R.id.content_text);
         dataTextView = (TextView) findViewById(R.id.data_text);
 
+        contentImageContainer = (FrameLayout) findViewById(R.id.content_img_container);
+        contentVideoTagView = (ImageView) findViewById(R.id.content_video_tag);
         contentImageView = (SimpleDraweeView) findViewById(R.id.content_img);
         contentImageView.setOnClickListener(this);
 
@@ -137,6 +142,8 @@ public class ContentItemView extends LinearLayout implements ItemView, View.OnCl
             unsupportImageView.setSelected(true);
         }
 
+        contentVideoTagView.setVisibility(View.GONE);
+        contentImageContainer.setVisibility(View.GONE);
         if (content.getFormat() == Content.Format.Image)
         {
             ImageSize imageSize = content.getMediumSize();
@@ -146,12 +153,9 @@ public class ContentItemView extends LinearLayout implements ItemView, View.OnCl
                 imageSize = content.getSmallSize();
                 imgurl = content.getSmallImage();
             }
-            if (imageSize == null || imageSize.getHeight() <= 0)
+            if (imageSize != null && imageSize.getHeight() > 0)
             {
-                contentImageView.setVisibility(View.GONE);
-            } else
-            {
-                contentImageView.setVisibility(View.VISIBLE);
+                contentImageContainer.setVisibility(View.VISIBLE);
                 float ratio = imageSize.getWidth() * 1.0f / imageSize.getHeight();
                 contentImageView.setAspectRatio(ratio);
                 contentImageView.setImageURI(Uri.parse(imgurl));
@@ -160,17 +164,12 @@ public class ContentItemView extends LinearLayout implements ItemView, View.OnCl
         {
             if (content.getPicSize() != null)
             {
-                contentImageView.setVisibility(View.VISIBLE);
+                contentImageContainer.setVisibility(View.VISIBLE);
+                contentVideoTagView.setVisibility(View.VISIBLE);
                 float ratio = content.getPicSize().getWidth() * 1.0f / content.getPicSize().getHeight();
                 contentImageView.setAspectRatio(ratio);
                 contentImageView.setImageURI(Uri.parse(content.getPicUrl()));
-            } else
-            {
-                contentImageView.setVisibility(View.GONE);
             }
-        } else
-        {
-            contentImageView.setVisibility(View.GONE);
         }
     }
 

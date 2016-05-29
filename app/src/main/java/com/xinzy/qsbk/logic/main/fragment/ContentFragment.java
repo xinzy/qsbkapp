@@ -11,6 +11,7 @@ import android.widget.ListView;
 import com.xinzy.qsbk.ContentActivity;
 import com.xinzy.qsbk.ImageActivity;
 import com.xinzy.qsbk.MainActivity;
+import com.xinzy.qsbk.MediaActivity;
 import com.xinzy.qsbk.R;
 import com.xinzy.qsbk.common.base.AbsBaseFragment;
 import com.xinzy.qsbk.common.model.Content;
@@ -69,7 +70,7 @@ public class ContentFragment extends AbsBaseFragment implements
         super.onAttach(context);
         type = getArguments().getString(PARAM_TYPE);
 
-        Logger.e("ContentFragment onAttach");
+        Logger.e("ContentFragment onAttach; type = " + type);
     }
 
     @Override
@@ -241,6 +242,9 @@ public class ContentFragment extends AbsBaseFragment implements
         if (content.getFormat() == Content.Format.Image)
         {
             ImageActivity.start(getActivity(), itemView.getContentImageView(), content.getMediumImage());
+        } else if (content.getFormat() == Content.Format.Video)
+        {
+            MediaActivity.start(getContext(), content.getHighUrl());
         }
     }
 
