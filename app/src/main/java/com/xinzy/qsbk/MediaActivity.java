@@ -16,8 +16,11 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -38,13 +41,18 @@ public class MediaActivity extends AppCompatActivity implements SurfaceHolder.Ca
     private SurfaceHolder       mHolder;
     private InternalMediaPlayer mMediaPlayer;
 
-    private ImageButton mPlayBtn;
-    private SeekBar     mSeekbar;
-    private TextView    currentText;
-    private TextView    totalText;
+    private LinearLayout controlBar;
+    private ImageButton  mPlayBtn;
+    private SeekBar      mSeekbar;
+    private TextView     currentText;
+    private TextView     totalText;
 
     private boolean isSurfaceCreated;
-    private String mediaUrl;
+    private boolean isControlBarShow = true;
+    private String  mediaUrl;
+
+    private TranslateAnimation showAnim;
+    private TranslateAnimation hideAnim;
 
     public static void start(Activity activity, View view, String url)
     {
@@ -69,6 +77,8 @@ public class MediaActivity extends AppCompatActivity implements SurfaceHolder.Ca
         mHolder.addCallback(this);
 
         mVideoFrame = (FrameLayout) findViewById(R.id.videoFrame);
+        mVideoFrame.setOnClickListener(this);
+        controlBar = (LinearLayout) findViewById(R.id.control_bar);
         mPlayBtn = (ImageButton) findViewById(R.id.play);
         setPlayBtnStatus(false);
         mPlayBtn.setOnClickListener(this);
@@ -78,6 +88,11 @@ public class MediaActivity extends AppCompatActivity implements SurfaceHolder.Ca
         currentText.setText(Utils.formatTime(0));
         totalText = (TextView) findViewById(R.id.totalTime);
         totalText.setText(Utils.formatTime(0));
+
+        showAnim = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 1, Animation.RELATIVE_TO_SELF, 0);
+        hideAnim = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 1);
+        showAnim.setDuration(300);
+        hideAnim.setDuration(300);
     }
 
     @Override
@@ -158,6 +173,10 @@ public class MediaActivity extends AppCompatActivity implements SurfaceHolder.Ca
                     mMediaPlayer.pause();
                 }
             }
+            break;
+
+        case R.id.videoFrame:
+            toggleControlBar();
             break;
         }
     }
@@ -325,6 +344,35 @@ public class MediaActivity extends AppCompatActivity implements SurfaceHolder.Ca
         mPlayBtn.setImageResource(isPlaying ? android.R.drawable.ic_media_pause : android.R.drawable.ic_media_play);
     }
 
+    private void toggleControlBar()
+    {
+        if (isControlBarShow)
+        {
+            controlBar.startAnimation(hideAnim);
+            controlBar.setVisibility(View.GONE);
+            isControlBarShow = false;
+        } else
+        {
+            controlBar.startAnimation(showAnim);
+            controlBar.setVisibility(View.VISIBLE);
+            isControlBarShow = true;
+        }
+    }
+
+    private void toggleControlBarDelay(final boolean show)
+    {
+        if (show != isControlBarShow)
+        {
+            controlBar.postDelayed(new Runnable() {
+                @Override
+                public void run()
+                {
+                    toggleControlBar();
+                }
+            }, 3000);
+        }
+    }
+
     @Override
     public void onProgressChanged(int current, int total)
     {
@@ -340,6 +388,7 @@ public class MediaActivity extends AppCompatActivity implements SurfaceHolder.Ca
     @Override
     public void onStatusChanged(int status)
     {
+        Log.d(TAG, "onStatusChanged: " + status);
         switch (status)
         {
         case InternalMediaPlayer.STATUS_IDEL:

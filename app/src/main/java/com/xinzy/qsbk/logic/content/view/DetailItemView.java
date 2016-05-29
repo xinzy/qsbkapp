@@ -88,10 +88,10 @@ public class DetailItemView extends LinearLayout implements ItemView, View.OnCli
         }
         usernameTextView.setText(user == null ? "匿名用户" : user.getUsername());
         floorTextView.setText(mComment.getFloor() + "");
-        contentTextView.setText(mComment.getContent());
         timeTextView.setText(mComment.getTime());
         praiseTextView.setText(mComment.getLikeCount() > 0 ? mComment.getLikeCount() + "" : "");
         praiseTextView.setSelected(mComment.isLiked());
+        contentTextView.setText(mComment.parseContent());
     }
 
     @Override

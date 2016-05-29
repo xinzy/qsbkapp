@@ -85,7 +85,7 @@ public class ReferFragment extends DialogFragment
             }
             usernameTextView.setText(user == null ? "匿名用户" : user.getUsername());
             floorTextView.setText(mComment.getFloor() + "");
-            contentTextView.setText(mComment.getContent());
+            contentTextView.setText(mComment.parseContent());
         }
     }
 

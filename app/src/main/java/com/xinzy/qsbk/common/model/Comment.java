@@ -1,7 +1,11 @@
 package com.xinzy.qsbk.common.model;
 
+import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 
 import com.xinzy.qsbk.common.util.Utils;
 
@@ -51,6 +55,20 @@ public class Comment implements Parcelable
         } catch (JSONException e)
         {
             return null;
+        }
+    }
+
+    public SpannableStringBuilder parseContent()
+    {
+        if (content.startsWith("回复"))
+        {
+            int index = content.indexOf("楼");
+            SpannableStringBuilder builder = new SpannableStringBuilder(content);
+            builder.setSpan(new ForegroundColorSpan(Color.parseColor("#FFBA1F")), 2, index + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return builder;
+        } else
+        {
+            return new SpannableStringBuilder(content);
         }
     }
 
