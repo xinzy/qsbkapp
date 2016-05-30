@@ -23,8 +23,6 @@ import com.xinzy.qsbk.common.ui.ItemView;
  */
 public class ContentItemView extends LinearLayout implements ItemView, View.OnClickListener
 {
-    protected Context mContext;
-
     private SimpleDraweeView mAvatarImageView;
     private TextView         usernameTextView;
     private TextView         stateTextView;
@@ -46,26 +44,25 @@ public class ContentItemView extends LinearLayout implements ItemView, View.OnCl
     {
         super(context);
 
-        init(context);
+        init();
     }
 
     public ContentItemView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
 
-        init(context);
+        init();
     }
 
     public ContentItemView(Context context, AttributeSet attrs, int defStyleAttr)
     {
         super(context, attrs, defStyleAttr);
 
-        init(context);
+        init();
     }
 
-    private void init(Context context)
+    private void init()
     {
-        mContext = context;
     }
 
     public void setOnItemViewListener(OnItemViewListener mOnItemViewListener)

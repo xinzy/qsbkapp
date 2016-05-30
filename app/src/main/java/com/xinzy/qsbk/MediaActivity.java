@@ -49,6 +49,7 @@ public class MediaActivity extends AppCompatActivity implements SurfaceHolder.Ca
 
     private boolean isSurfaceCreated;
     private boolean isControlBarShow = true;
+    private boolean mWasPlaying;
     private String  mediaUrl;
 
     private TranslateAnimation showAnim;
@@ -410,20 +411,20 @@ public class MediaActivity extends AppCompatActivity implements SurfaceHolder.Ca
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
     {
-        if (fromUser)
-        {
-            mMediaPlayer.seekTo(progress);
-        }
+        if (fromUser)  mMediaPlayer.seekTo(progress);
     }
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar)
     {
+        mWasPlaying = mMediaPlayer.isPlaying();
+        if (mWasPlaying) mMediaPlayer.pause();
     }
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar)
     {
+        if (mWasPlaying) mMediaPlayer.start();
     }
 
 }

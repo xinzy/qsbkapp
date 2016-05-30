@@ -20,8 +20,6 @@ import com.xinzy.qsbk.common.widget.PraiseView;
  */
 public class DetailItemView extends LinearLayout implements ItemView, View.OnClickListener
 {
-    protected Context mContext;
-
     private SimpleDraweeView mAvatarView;
     private TextView         usernameTextView;
     private TextView         floorTextView;
@@ -35,24 +33,23 @@ public class DetailItemView extends LinearLayout implements ItemView, View.OnCli
     public DetailItemView(Context context)
     {
         super(context);
-        init(context);
+        init();
     }
 
     public DetailItemView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
-        init(context);
+        init();
     }
 
     public DetailItemView(Context context, AttributeSet attrs, int defStyleAttr)
     {
         super(context, attrs, defStyleAttr);
-        init(context);
+        init();
     }
 
-    private void init(Context context)
+    private void init()
     {
-        mContext = context;
     }
 
     public void setItemViewListener(ItemViewListener mItemViewListener)
@@ -153,7 +150,5 @@ public class DetailItemView extends LinearLayout implements ItemView, View.OnCli
         void onContentClick(DetailItemView itemView, Comment comment);
 
         void onPraiseClick(DetailItemView view, Comment comment);
-
-
     }
 }
