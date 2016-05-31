@@ -27,6 +27,10 @@
     <item android:title="@string/nav_system">
         <menu>
             <item
+                android:id="@+id/nav_awkward"
+                android:icon="@drawable/awkward"
+                android:title="@string/nav_awkward"/>
+            <item
                 android:id="@+id/nav_setting"
                 android:icon="@drawable/ic_menu_setting"
                 android:title="@string/nav_setting"/>

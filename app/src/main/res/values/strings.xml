@@ -10,6 +10,7 @@
     <string name="nav_text">文字</string>
     <string name="nav_day">精华</string>
     <string name="nav_system">系统</string>
+    <string name="nav_awkward">段子</string>
     <string name="nav_setting">设置</string>
 
     <string name="action_settings">设置</string>
@@ -19,5 +20,7 @@
     <string name="content_data">顶 %1$S . 踩 %2$s . 评论 %3$s . 分享 %4$s</string>
     <string name="type_flush">新鲜</string>
     <string name="type_hot">热门</string>
+    <string name="title_activity_awkward">内涵段子</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
 </resources>

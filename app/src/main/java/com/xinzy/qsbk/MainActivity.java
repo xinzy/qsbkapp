@@ -184,6 +184,10 @@ public class MainActivity extends AppCompatActivity implements
             }
             break;
 
+        case R.id.nav_awkward:
+            AwkwardActivity.start(this);
+            break;
+
         case R.id.nav_setting:      //设置
             break;
         }

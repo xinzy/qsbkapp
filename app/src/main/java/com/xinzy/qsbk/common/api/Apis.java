@@ -37,4 +37,8 @@ public class Apis
         return String.format(COMMENT_URL, artic, page, COUNTER.getAndIncrement(), getR());
     }
 
+    public static final String getAwkwardUrl()
+    {
+        return null;
+    }
 }
