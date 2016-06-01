@@ -21,6 +21,6 @@
     <string name="type_flush">新鲜</string>
     <string name="type_hot">热门</string>
     <string name="title_activity_awkward">内涵段子</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="section_format">Hello World from section: %1$s</string>
 
 </resources>

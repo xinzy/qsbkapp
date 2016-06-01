@@ -37,8 +37,10 @@ public class Apis
         return String.format(COMMENT_URL, artic, page, COUNTER.getAndIncrement(), getR());
     }
 
-    public static final String getAwkwardUrl()
+    private static final String AWKWARD_URL = "http://ic.snssdk.com/neihan/stream/mix/v1/?content_type=%1$d&min_time=%1$d&mpic=1&essence=1&message_cursor=-1&bd_longitude=0.000000&bd_latitude=0.000000&bd_city=&count=30&screen_width=768&iid=4462919942&device_id=17235163508&ac=wifi&channel=NHSQH5AN&aid=7&app_name=joke_essay&version_code=431&device_platform=android&ssmix=a&device_type=Nexus5&os_api=19&os_version=6.0.1&openudid=cec3474cb01d91c5&manifest_version_code=431";
+
+    public static final String getAwkwardUrl(int catid, int time)
     {
-        return null;
+        return String.format(AWKWARD_URL, catid, time);
     }
 }
