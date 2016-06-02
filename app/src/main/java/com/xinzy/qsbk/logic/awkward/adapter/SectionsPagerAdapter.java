@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
 
 import com.xinzy.qsbk.logic.awkward.fragment.AwkwardFragment;
 
@@ -43,6 +44,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter
 		return mCats.get(position).title;
 	}
 
+	@Override
+	public void destroyItem(ViewGroup container, int position, Object object)
+	{
+	}
+
 	public static class Category implements Parcelable
 	{
 		public int    id;
@@ -58,6 +64,12 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter
 		{
 			this.id = id;
 			this.title = title;
+		}
+
+		@Override
+		public String toString()
+		{
+			return title;
 		}
 
 		public static final List<Category> list()

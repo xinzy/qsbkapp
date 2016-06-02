@@ -42,7 +42,8 @@
         <activity
             android:name=".AwkwardActivity"
             android:label="@string/title_activity_awkward"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

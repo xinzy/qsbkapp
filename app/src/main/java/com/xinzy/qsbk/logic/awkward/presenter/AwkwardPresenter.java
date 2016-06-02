@@ -35,7 +35,6 @@ public class AwkwardPresenter implements IAwkwardPresenter
 	public void setCategory(SectionsPagerAdapter.Category category)
 	{
 		mCategory = category;
-		Logger.v("current category " + category.title);
 	}
 
 	@Override
@@ -88,7 +87,6 @@ public class AwkwardPresenter implements IAwkwardPresenter
 						lists.add(Awkward.parse(array.optJSONObject(i)));
 					}
 				}
-				Logger.e("lists - " + lists);
 
 				return lists;
 			}
@@ -100,13 +98,15 @@ public class AwkwardPresenter implements IAwkwardPresenter
 		public void onError(Call call, Exception e)
 		{
 			mView.showLoading(false);
+			mView.loadResult(0, 0);
 		}
 
 		@Override
 		public void onResponse(List<Awkward> response)
 		{
 			mView.showLoading(false);
-			mView.loadResult(minTime);
+			mView.loadResult(minTime, maxTime);
+			mView.showData(response);
 		}
 	}
 }

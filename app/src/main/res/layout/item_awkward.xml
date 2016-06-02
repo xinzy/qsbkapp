@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.xinzy.qsbk.logic.awkward.view.AwkwardItemView android:id="@+id/content_item_layout"
+                                                   xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:background="@drawable/simple_bg"
+                                                   android:orientation="vertical"
+                                                   android:paddingEnd="@dimen/activity_horizontal_margin"
+                                                   android:paddingStart="@dimen/activity_horizontal_margin">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/avatar_img"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            fresco:fadeDuration="300"
+            fresco:failureImage="@drawable/default_avatar"
+            fresco:placeholderImage="@drawable/default_avatar"
+            fresco:roundAsCircle="true"
+            fresco:roundedCornerRadius="180dp"/>
+
+        <TextView
+            android:id="@+id/state_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:drawableLeft="@drawable/state_fresh"
+            android:drawablePadding="4dp"
+            android:textColor="#969696"
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:text="新鲜"/>
+
+        <TextView
+            android:id="@+id/username_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@id/avatar_img"
+            android:layout_toStartOf="@id/state_text"
+            android:textColor="#555555"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="用户名"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/content_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#646352"
+        android:textSize="14sp"
+        tools:text="微信上说一个米国黑客扬言要黑一个中国网站，结果他刚打开网页，电脑就被安装了四五个插件和被强制捆绑了首页导航…"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/content_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            fresco:actualImageScaleType="fitXY"
+            fresco:fadeDuration="300"
+            fresco:viewAspectRatio="0.5"/>
+
+        <ImageView
+            android:id="@+id/content_img_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_media_tag"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/data_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textColor="#9C9C9C"
+        android:textSize="12sp"
+        tools:text="@string/awkward_data"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/support_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_support_sel"/>
+
+        <ImageButton
+            android:id="@+id/unsupport_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_unsupport_sel"/>
+
+        <ImageButton
+            android:id="@+id/comment_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/simple_bg"
+            android:src="@drawable/operation_comments"/>
+
+        <android.support.v4.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/share_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/simple_bg"
+            android:src="@drawable/operation_share"/>
+    </LinearLayout>
+</com.xinzy.qsbk.logic.awkward.view.AwkwardItemView>

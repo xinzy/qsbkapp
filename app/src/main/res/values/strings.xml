@@ -18,6 +18,7 @@
 
     <string name="anonymous">匿名用户</string>
     <string name="content_data">顶 %1$S . 踩 %2$s . 评论 %3$s . 分享 %4$s</string>
+    <string name="awkward_data">浏览 %1$S . 收藏 %2$s . 评论 %3$s . 分享 %4$s . 顶 %5$s . 踩 %6$s</string>
     <string name="type_flush">新鲜</string>
     <string name="type_hot">热门</string>
     <string name="title_activity_awkward">内涵段子</string>

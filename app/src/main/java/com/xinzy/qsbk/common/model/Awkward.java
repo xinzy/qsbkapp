@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,10 @@ public class Awkward implements Parcelable
 	public static final int TYPE_VIDEO = 3;
 	public static final int TYPE_IMGS = 4;
 
+	public static final int HOBBY_NONE = 0;
+	public static final int HOBBY_UP = 1;
+	public static final int HOBBY_DOWN = 2;
+
 	private User author;
 	private int id;
 	private int mediaType;
@@ -29,6 +34,9 @@ public class Awkward implements Parcelable
 	private int views;
 	private int shares;
 	private int time;
+	private int up;
+	private int down;
+	private int hobby;
 	private boolean isFavor;
 	private String shareUrl;
 	private Image image;
@@ -51,6 +59,9 @@ public class Awkward implements Parcelable
 		this.views = in.readInt();
 		this.shares = in.readInt();
 		this.time = in.readInt();
+		this.up = in.readInt();
+		this.down = in.readInt();
+		this.hobby = in.readInt();
 		this.isFavor = in.readByte() != 0;
 		this.shareUrl = in.readString();
 		this.image = in.readParcelable(Image.class.getClassLoader());
@@ -72,6 +83,8 @@ public class Awkward implements Parcelable
 		item.shareUrl = data.optString("share_url");
 		item.shares = data.optInt("share_count");
 		item.time = data.optInt("create_time");
+		item.up = data.optInt("digg_count");
+		item.down = data.optInt("bury_count");
 
 		final int type = item.mediaType = data.optInt("media_type");
 		switch (type)
@@ -154,9 +167,21 @@ public class Awkward implements Parcelable
 		this.content = content;
 	}
 
-	public int getFavors()
+	public String getFavors()
 	{
-		return favors;
+		String str;
+		DecimalFormat format = new DecimalFormat("#.#");
+		if (favors > 10000)
+		{
+			str = format.format(favors / 10000) + "W";
+		} else if (favors > 1000)
+		{
+			str = format.format(favors / 1000) + "W";
+		} else
+		{
+			str = favors + "";
+		}
+		return str;
 	}
 
 	public void setFavors(int favors)
@@ -164,9 +189,21 @@ public class Awkward implements Parcelable
 		this.favors = favors;
 	}
 
-	public int getComments()
+	public String getComments()
 	{
-		return comments;
+		String str;
+		DecimalFormat format = new DecimalFormat("#.#");
+		if (comments > 10000)
+		{
+			str = format.format(comments / 10000) + "W";
+		} else if (comments > 1000)
+		{
+			str = format.format(comments / 1000) + "W";
+		} else
+		{
+			str = comments + "";
+		}
+		return str;
 	}
 
 	public void setComments(int comments)
@@ -174,9 +211,21 @@ public class Awkward implements Parcelable
 		this.comments = comments;
 	}
 
-	public int getViews()
+	public String getViews()
 	{
-		return views;
+		String str;
+		DecimalFormat format = new DecimalFormat("#.#");
+		if (views > 10000)
+		{
+			str = format.format(views / 10000) + "W";
+		} else if (views > 1000)
+		{
+			str = format.format(views / 1000) + "W";
+		} else
+		{
+			str = views + "";
+		}
+		return str;
 	}
 
 	public void setViews(int views)
@@ -184,9 +233,21 @@ public class Awkward implements Parcelable
 		this.views = views;
 	}
 
-	public int getShares()
+	public String getShares()
 	{
-		return shares;
+		String str;
+		DecimalFormat format = new DecimalFormat("#.#");
+		if (shares > 10000)
+		{
+			str = format.format(shares / 10000) + "W";
+		} else if (shares > 1000)
+		{
+			str = format.format(shares / 1000) + "W";
+		} else
+		{
+			str = shares + "";
+		}
+		return str;
 	}
 
 	public void setShares(int shares)
@@ -202,6 +263,70 @@ public class Awkward implements Parcelable
 	public void setTime(int time)
 	{
 		this.time = time;
+	}
+
+	public String getUp()
+	{
+		String str;
+		DecimalFormat format = new DecimalFormat("#.#");
+		if (up > 10000)
+		{
+			str = format.format(up / 10000) + "W";
+		} else if (up > 1000)
+		{
+			str = format.format(up / 1000) + "W";
+		} else
+		{
+			str = up + "";
+		}
+		return str;
+	}
+
+	public void setUp(int up)
+	{
+		this.up = up;
+	}
+
+	public String getDown()
+	{
+		String str;
+		DecimalFormat format = new DecimalFormat("#.#");
+		if (down > 10000)
+		{
+			str = format.format(down / 10000) + "W";
+		} else if (down > 1000)
+		{
+			str = format.format(down / 1000) + "W";
+		} else
+		{
+			str = down + "";
+		}
+		return str;
+	}
+
+	public void setDown(int down)
+	{
+		this.down = down;
+	}
+
+	public int getHobby()
+	{
+		return hobby;
+	}
+
+	public void clearHobby()
+	{
+		hobby = HOBBY_NONE;
+	}
+
+	public void setUp()
+	{
+		hobby = HOBBY_UP;
+	}
+
+	public void setDown()
+	{
+		hobby = HOBBY_DOWN;
 	}
 
 	public boolean isFavor()
@@ -282,6 +407,9 @@ public class Awkward implements Parcelable
 		dest.writeInt(this.views);
 		dest.writeInt(this.shares);
 		dest.writeInt(this.time);
+		dest.writeInt(this.up);
+		dest.writeInt(this.down);
+		dest.writeInt(this.hobby);
 		dest.writeByte(this.isFavor ? (byte) 1 : (byte) 0);
 		dest.writeString(this.shareUrl);
 		dest.writeParcelable(this.image, flags);
@@ -372,6 +500,16 @@ public class Awkward implements Parcelable
 			this.url = url;
 		}
 
+		public String getCover()
+		{
+			return cover;
+		}
+
+		public void setCover(String cover)
+		{
+			this.cover = cover;
+		}
+
 		@Override
 		public int describeContents()
 		{
@@ -428,7 +566,7 @@ public class Awkward implements Parcelable
 			img.width = json.optInt("width");
 			img.height = json.optInt("height");
 			JSONArray array = json.optJSONArray("url_list");
-			if (array != null && array.length() > 0) img.url = array.optJSONObject(0).optString("url");
+			if (array != null && array.length() > 1) img.url = array.optJSONObject(1).optString("url");
 
 			return img;
 		}
