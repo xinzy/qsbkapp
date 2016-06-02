@@ -24,10 +24,10 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.xinzy.qsbk.common.widget.PhotoDraweeView
+    <!--<com.xinzy.qsbk.common.widget.PhotoDraweeView
         android:id="@+id/scale_image_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
-        app:fadeDuration="300"/>
+        app:fadeDuration="300"/>-->
 </android.support.design.widget.CoordinatorLayout>

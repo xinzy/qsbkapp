@@ -10,9 +10,9 @@ import com.xinzy.qsbk.logic.main.view.ContentItemView;
 public interface IContentPresenter extends IBasePresenter
 {
 
-    void loading(int page);
+	void loading(int page);
 
-    void onSupportClick(ContentItemView itemView, Content content);
+	void onSupportClick(ContentItemView itemView, Content content);
 
-    void onUnsupportClick(ContentItemView itemView, Content content);
+	void onUnsupportClick(ContentItemView itemView, Content content);
 }

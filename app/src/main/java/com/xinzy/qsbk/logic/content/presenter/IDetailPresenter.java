@@ -11,13 +11,13 @@ import com.xinzy.qsbk.logic.content.view.ContentDetailView;
 public interface IDetailPresenter extends IBasePresenter
 {
 
-    void setContent(Content content);
+	void setContent(Content content);
 
-    void loading(int page);
+	void loading(int page);
 
-    void onSupportClick(ContentDetailView view, Content content);
+	void onSupportClick(ContentDetailView view, Content content);
 
-    void onUnsupportClick(ContentDetailView view, Content content);
+	void onUnsupportClick(ContentDetailView view, Content content);
 
-    void showReferDialog(Comment comment);
+	void showReferDialog(Comment comment);
 }

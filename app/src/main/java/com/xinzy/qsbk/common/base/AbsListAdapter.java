@@ -17,126 +17,126 @@ import java.util.List;
  */
 public abstract class AbsListAdapter<T> extends BaseAdapter
 {
-    protected List<T>        mData;
-    private   LayoutInflater mInflater;
+	protected List<T>        mData;
+	private   LayoutInflater mInflater;
 
-    public AbsListAdapter()
-    {
-        mData = new ArrayList<>();
-    }
+	public AbsListAdapter()
+	{
+		mData = new ArrayList<>();
+	}
 
-    public AbsListAdapter(@Nullable List<T> lists)
-    {
-        if (lists == null)
-        {
-            mData = new ArrayList<>();
-        } else
-        {
-            mData = lists;
-        }
-    }
+	public AbsListAdapter(@Nullable List<T> lists)
+	{
+		if (lists == null)
+		{
+			mData = new ArrayList<>();
+		} else
+		{
+			mData = lists;
+		}
+	}
 
-    public List<T> getList()
-    {
-        return mData;
-    }
+	public List<T> getList()
+	{
+		return mData;
+	}
 
-    public void setData(@NonNull List<T> lists)
-    {
-        if (lists != null)
-        {
-            mData = lists;
-            refresh();
-        }
-    }
+	public void setData(@NonNull List<T> lists)
+	{
+		if (lists != null)
+		{
+			mData = lists;
+			refresh();
+		}
+	}
 
-    public void clear()
-    {
-        mData.clear();
-        refresh();
-    }
+	public void clear()
+	{
+		mData.clear();
+		refresh();
+	}
 
-    public void replace(@NonNull List<T> lists)
-    {
-        mData.clear();
+	public void replace(@NonNull List<T> lists)
+	{
+		mData.clear();
 
-        if (lists != null)
-        {
-            mData.addAll(lists);
-        }
-        refresh();
-    }
+		if (lists != null)
+		{
+			mData.addAll(lists);
+		}
+		refresh();
+	}
 
-    public void add(@NonNull T t)
-    {
-        if (t != null)
-        {
-            mData.add(t);
-            refresh();
-        }
-    }
+	public void add(@NonNull T t)
+	{
+		if (t != null)
+		{
+			mData.add(t);
+			refresh();
+		}
+	}
 
-    public void addAll(@NonNull List<T> lists)
-    {
-        if (lists != null)
-        {
-            mData.addAll(lists);
-            refresh();
-        }
-    }
+	public void addAll(@NonNull List<T> lists)
+	{
+		if (lists != null)
+		{
+			mData.addAll(lists);
+			refresh();
+		}
+	}
 
-    public void remove(int index)
-    {
-        if (index >= 0 && index < mData.size())
-        {
-            mData.remove(index);
-            refresh();
-        }
-    }
+	public void remove(int index)
+	{
+		if (index >= 0 && index < mData.size())
+		{
+			mData.remove(index);
+			refresh();
+		}
+	}
 
-    private synchronized void refresh()
-    {
-        notifyDataSetChanged();
-    }
+	private synchronized void refresh()
+	{
+		notifyDataSetChanged();
+	}
 
-    @Override
-    public int getCount()
-    {
-        return mData == null ? 0 : mData.size();
-    }
+	@Override
+	public int getCount()
+	{
+		return mData == null ? 0 : mData.size();
+	}
 
-    @Override
-    public T getItem(int position)
-    {
-        return mData == null ? null : mData.get(position);
-    }
+	@Override
+	public T getItem(int position)
+	{
+		return mData == null ? null : mData.get(position);
+	}
 
-    @Override
-    public long getItemId(int position)
-    {
-        return position;
-    }
+	@Override
+	public long getItemId(int position)
+	{
+		return position;
+	}
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
-        if (convertView == null)
-        {
-            if (mInflater == null)
-            {
-                mInflater = LayoutInflater.from(parent.getContext());
-            }
-            convertView = mInflater.inflate(getLayout(position), parent, false);
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent)
+	{
+		if (convertView == null)
+		{
+			if (mInflater == null)
+			{
+				mInflater = LayoutInflater.from(parent.getContext());
+			}
+			convertView = mInflater.inflate(getLayout(position), parent, false);
 
-            ItemView itemView = (ItemView) convertView;
-            itemView.onInit();
-        }
-        onSetData(convertView, position);
+			ItemView itemView = (ItemView) convertView;
+			itemView.onInit();
+		}
+		onSetData(convertView, position);
 
-        return convertView;
-    }
+		return convertView;
+	}
 
-    protected abstract int getLayout(int position);
+	protected abstract int getLayout(int position);
 
-    protected abstract void onSetData(View view, int position);
+	protected abstract void onSetData(View view, int position);
 }

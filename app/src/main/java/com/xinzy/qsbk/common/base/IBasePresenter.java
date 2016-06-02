@@ -5,5 +5,5 @@ package com.xinzy.qsbk.common.base;
  */
 public interface IBasePresenter
 {
-    void start();
+	void start();
 }

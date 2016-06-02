@@ -12,11 +12,11 @@ import java.util.List;
 public interface IDetailView extends IBaseView<IDetailPresenter>
 {
 
-    void showLoading(boolean isShow);
+	void showLoading(boolean isShow);
 
-    void loadResult(boolean success);
+	void loadResult(boolean success);
 
-    void showDataAfterLoad(List<Comment> contents, boolean refresh);
+	void showDataAfterLoad(List<Comment> contents, boolean refresh);
 
-    void showReferDialog(Comment comment);
+	void showReferDialog(Comment comment);
 }

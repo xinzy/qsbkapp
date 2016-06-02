@@ -15,34 +15,34 @@ import java.util.List;
  */
 public class Awkward implements Parcelable
 {
-	public static final int TYPE_TEXT = 0;
-	public static final int TYPE_IMG = 1;
-	public static final int TYPE_GIF = 2;
+	public static final int TYPE_TEXT  = 0;
+	public static final int TYPE_IMG   = 1;
+	public static final int TYPE_GIF   = 2;
 	public static final int TYPE_VIDEO = 3;
-	public static final int TYPE_IMGS = 4;
+	public static final int TYPE_IMGS  = 4;
 
 	public static final int HOBBY_NONE = 0;
-	public static final int HOBBY_UP = 1;
+	public static final int HOBBY_UP   = 1;
 	public static final int HOBBY_DOWN = 2;
 
-	private User author;
-	private int id;
-	private int mediaType;
-	private String content;
-	private int favors;
-	private int comments;
-	private int views;
-	private int shares;
-	private int time;
-	private int up;
-	private int down;
-	private int hobby;
-	private boolean isFavor;
-	private String shareUrl;
-	private Image image;
+	private User        author;
+	private int         id;
+	private int         mediaType;
+	private String      content;
+	private int         favors;
+	private int         comments;
+	private int         views;
+	private int         shares;
+	private int         time;
+	private int         up;
+	private int         down;
+	private int         hobby;
+	private boolean     isFavor;
+	private String      shareUrl;
+	private Image       image;
 	private List<Image> images;
-	private Comment hotComment;
-	private Video video;
+	private Comment     hotComment;
+	private Video       video;
 
 	public Awkward()
 	{
@@ -72,7 +72,7 @@ public class Awkward implements Parcelable
 
 	public static final Awkward parse(JSONObject json)
 	{
-		Awkward item = new Awkward();
+		Awkward    item = new Awkward();
 		JSONObject data = json.optJSONObject("group");
 
 		item.id = data.optInt("id");
@@ -169,7 +169,7 @@ public class Awkward implements Parcelable
 
 	public String getFavors()
 	{
-		String str;
+		String        str;
 		DecimalFormat format = new DecimalFormat("#.#");
 		if (favors > 10000)
 		{
@@ -191,7 +191,7 @@ public class Awkward implements Parcelable
 
 	public String getComments()
 	{
-		String str;
+		String        str;
 		DecimalFormat format = new DecimalFormat("#.#");
 		if (comments > 10000)
 		{
@@ -213,7 +213,7 @@ public class Awkward implements Parcelable
 
 	public String getViews()
 	{
-		String str;
+		String        str;
 		DecimalFormat format = new DecimalFormat("#.#");
 		if (views > 10000)
 		{
@@ -235,7 +235,7 @@ public class Awkward implements Parcelable
 
 	public String getShares()
 	{
-		String str;
+		String        str;
 		DecimalFormat format = new DecimalFormat("#.#");
 		if (shares > 10000)
 		{
@@ -267,7 +267,7 @@ public class Awkward implements Parcelable
 
 	public String getUp()
 	{
-		String str;
+		String        str;
 		DecimalFormat format = new DecimalFormat("#.#");
 		if (up > 10000)
 		{
@@ -289,7 +289,7 @@ public class Awkward implements Parcelable
 
 	public String getDown()
 	{
-		String str;
+		String        str;
 		DecimalFormat format = new DecimalFormat("#.#");
 		if (down > 10000)
 		{
@@ -435,8 +435,8 @@ public class Awkward implements Parcelable
 
 	public static final class Video implements Parcelable
 	{
-		private int width;
-		private int height;
+		private int    width;
+		private int    height;
 		private String url;
 		private String cover;
 
@@ -454,9 +454,10 @@ public class Awkward implements Parcelable
 
 		public static final Video parse(JSONObject json, JSONObject cover)
 		{
-			Video video = new Video();
+			Video     video = new Video();
 			JSONArray array = json.optJSONArray("url_list");
-			if (array != null && array.length() > 0) video.url = array.optJSONObject(0).optString("url");
+			if (array != null && array.length() > 0)
+				video.url = array.optJSONObject(0).optString("url");
 			else return null;
 
 			video.width = json.optInt("width");
@@ -543,9 +544,9 @@ public class Awkward implements Parcelable
 
 	public static final class Image implements Parcelable
 	{
-		private int width;
-		private int height;
-		private String url;
+		private int     width;
+		private int     height;
+		private String  url;
 		private boolean isGif;
 
 		public Image()
@@ -566,7 +567,8 @@ public class Awkward implements Parcelable
 			img.width = json.optInt("width");
 			img.height = json.optInt("height");
 			JSONArray array = json.optJSONArray("url_list");
-			if (array != null && array.length() > 1) img.url = array.optJSONObject(1).optString("url");
+			if (array != null && array.length() > 1)
+				img.url = array.optJSONObject(1).optString("url");
 
 			return img;
 		}
@@ -574,11 +576,11 @@ public class Awkward implements Parcelable
 		public static final List<Image> parse(JSONArray array)
 		{
 			List<Image> images = new ArrayList<>();
-			final int length = array.length();
+			final int   length = array.length();
 			for (int i = 0; i < length; i++)
 			{
 				JSONObject json = array.optJSONObject(i);
-				Image img = new Image();
+				Image      img  = new Image();
 				img.width = json.optInt("width");
 				img.height = json.optInt("height");
 				img.url = json.optString("url");
@@ -664,7 +666,7 @@ public class Awkward implements Parcelable
 	public static final class Comment implements Parcelable
 	{
 		private User    user;
-		private int 	id;
+		private int     id;
 		private String  content;
 		private boolean liked;
 		private int     likeCount;

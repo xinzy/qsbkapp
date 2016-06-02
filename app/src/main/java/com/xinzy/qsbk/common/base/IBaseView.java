@@ -5,5 +5,5 @@ package com.xinzy.qsbk.common.base;
  */
 public interface IBaseView<T extends IBasePresenter>
 {
-    void setPresenter(T presenter);
+	void setPresenter(T presenter);
 }

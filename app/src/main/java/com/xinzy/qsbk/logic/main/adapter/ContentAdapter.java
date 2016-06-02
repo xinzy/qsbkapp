@@ -13,24 +13,24 @@ import com.xinzy.qsbk.logic.main.view.ContentItemView;
 public class ContentAdapter extends AbsListAdapter<Content>
 {
 
-    private ContentItemView.OnItemViewListener mOnItemViewListener;
+	private ContentItemView.OnItemViewListener mOnItemViewListener;
 
-    public void setOnItemViewListener(ContentItemView.OnItemViewListener onItemViewListener)
-    {
-        this.mOnItemViewListener = onItemViewListener;
-    }
+	public void setOnItemViewListener(ContentItemView.OnItemViewListener onItemViewListener)
+	{
+		this.mOnItemViewListener = onItemViewListener;
+	}
 
-    @Override
-    protected int getLayout(int position)
-    {
-        return R.layout.item_content;
-    }
+	@Override
+	protected int getLayout(int position)
+	{
+		return R.layout.item_content;
+	}
 
-    @Override
-    protected void onSetData(View view, int position)
-    {
-        ContentItemView itemView = (ContentItemView) view;
-        itemView.setOnItemViewListener(mOnItemViewListener);
-        itemView.onSetData(mData.get(position), position);
-    }
+	@Override
+	protected void onSetData(View view, int position)
+	{
+		ContentItemView itemView = (ContentItemView) view;
+		itemView.setOnItemViewListener(mOnItemViewListener);
+		itemView.onSetData(mData.get(position), position);
+	}
 }

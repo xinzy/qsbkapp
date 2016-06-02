@@ -99,10 +99,16 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter
 		public static final Creator<Category> CREATOR = new Creator<Category>()
 		{
 			@Override
-			public Category createFromParcel(Parcel source) {return new Category(source);}
+			public Category createFromParcel(Parcel source)
+			{
+				return new Category(source);
+			}
 
 			@Override
-			public Category[] newArray(int size) {return new Category[size];}
+			public Category[] newArray(int size)
+			{
+				return new Category[size];
+			}
 		};
 	}
 }

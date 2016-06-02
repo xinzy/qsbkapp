@@ -6,9 +6,9 @@ package com.xinzy.qsbk.common.ui;
 public interface ItemView
 {
 
-    void onInit();
+	void onInit();
 
-    void onSetData(Object object, int position);
+	void onSetData(Object object, int position);
 
-    void onClose();
+	void onClose();
 }

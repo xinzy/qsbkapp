@@ -19,7 +19,7 @@ public class InternalMediaPlayer extends MediaPlayer
 	private int mStatus = STATUS_IDEL;
 
 	private OnStatusChangeListener mStatusChangeListener;
-	private Handler mHandler;
+	private Handler                mHandler;
 
 	public InternalMediaPlayer()
 	{

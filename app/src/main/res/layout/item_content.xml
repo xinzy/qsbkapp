@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.xinzy.qsbk.logic.main.view.ContentItemView xmlns:android="http://schemas.android.com/apk/res/android"
                                                 xmlns:tools="http://schemas.android.com/tools"
-                                                xmlns:fresco="http://schemas.android.com/apk/res-auto"
                                                 android:id="@+id/content_item_layout"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="match_parent"
@@ -16,15 +15,11 @@
         android:paddingBottom="8dp"
         android:paddingTop="8dp">
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <ImageView
             android:id="@+id/avatar_img"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            fresco:fadeDuration="300"
-            fresco:placeholderImage="@drawable/default_avatar"
-            fresco:failureImage="@drawable/default_avatar"
-            fresco:roundAsCircle="true"
-            fresco:roundedCornerRadius="180dp"/>
+            android:src="@drawable/default_avatar"/>
 
         <TextView
             android:id="@+id/state_text"
@@ -63,19 +58,16 @@
 
 
     <FrameLayout
-        android:id="@+id/content_img_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <ImageView
             android:id="@+id/content_img"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="1px"
             android:background="@android:color/transparent"
-            fresco:fadeDuration="300"
-            fresco:viewAspectRatio="0.5"
-            fresco:actualImageScaleType="fitXY"/>
+            android:scaleType="fitXY"/>
 
         <ImageView
             android:id="@+id/content_video_tag"

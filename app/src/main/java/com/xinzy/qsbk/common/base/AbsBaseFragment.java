@@ -13,35 +13,35 @@ import android.view.ViewGroup;
 public abstract class AbsBaseFragment extends Fragment
 {
 
-    protected View rootView;
+	protected View rootView;
 
-    @Nullable
-    @Override
-    public final View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-    {
-        rootView = inflater.inflate(getLayout(), container, false);
+	@Nullable
+	@Override
+	public final View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+	{
+		rootView = inflater.inflate(getLayout(), container, false);
 
-        return rootView;
-    }
+		return rootView;
+	}
 
-    @Override
-    public final void onViewCreated(View view, @Nullable Bundle savedInstanceState)
-    {
-        super.onViewCreated(view, savedInstanceState);
-        initializeView();
-    }
+	@Override
+	public final void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+	{
+		super.onViewCreated(view, savedInstanceState);
+		initializeView();
+	}
 
-    @Nullable
-    protected View findViewById(int id)
-    {
-        if (rootView != null)
-        {
-            return rootView.findViewById(id);
-        }
-        return null;
-    }
+	@Nullable
+	protected View findViewById(int id)
+	{
+		if (rootView != null)
+		{
+			return rootView.findViewById(id);
+		}
+		return null;
+	}
 
-    protected abstract int getLayout();
+	protected abstract int getLayout();
 
-    protected abstract void initializeView();
+	protected abstract void initializeView();
 }

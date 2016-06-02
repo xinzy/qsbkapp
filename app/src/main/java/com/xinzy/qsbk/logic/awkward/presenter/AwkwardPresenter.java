@@ -22,7 +22,7 @@ import okhttp3.Response;
  */
 public class AwkwardPresenter implements IAwkwardPresenter
 {
-	private IAwkwardView mView;
+	private IAwkwardView                  mView;
 	private SectionsPagerAdapter.Category mCategory;
 
 	public AwkwardPresenter(IAwkwardView mView)
@@ -61,14 +61,14 @@ public class AwkwardPresenter implements IAwkwardPresenter
 	class AwkwardCallback extends Callback<List<Awkward>>
 	{
 		private boolean success;
-		private int minTime;
-		private int maxTime;
+		private int     minTime;
+		private int     maxTime;
 
 		@Override
 		public List<Awkward> parseNetworkResponse(Response response) throws Exception
 		{
 			JSONObject rootJson = new JSONObject(response.body().string());
-			String message = rootJson.optString("message");
+			String     message  = rootJson.optString("message");
 			if ("success".equals(message))
 			{
 				success = true;

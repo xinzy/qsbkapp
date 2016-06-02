@@ -17,197 +17,208 @@ import org.json.JSONObject;
  */
 public class Comment implements Parcelable
 {
-    private int     id;
-    private String  content;
-    private int     parentId;
-    private boolean liked;
-    private int     likeCount;
-    private int     floor;
-    private long    created;
-    private User    user;
-    private Comment refer;
+	private int     id;
+	private String  content;
+	private int     parentId;
+	private boolean liked;
+	private int     likeCount;
+	private int     floor;
+	private long    created;
+	private User    user;
+	private Comment refer;
 
-    public Comment() {}
+	public Comment()
+	{
+	}
 
-    public Comment(JSONObject json)
-    {
-        id = json.optInt("id");
-        content = json.optString("content");
-        parentId = json.optInt("parent_id");
-        liked = json.optBoolean("liked");
-        likeCount = json.optInt("like_count");
-        floor = json.optInt("floor");
-        created = json.optInt("created_at") * 1000;
-        user = User.parse(json.optString("user"));
+	public Comment(JSONObject json)
+	{
+		id = json.optInt("id");
+		content = json.optString("content");
+		parentId = json.optInt("parent_id");
+		liked = json.optBoolean("liked");
+		likeCount = json.optInt("like_count");
+		floor = json.optInt("floor");
+		created = json.optInt("created_at") * 1000;
+		user = User.parse(json.optString("user"));
 
-        String ref = json.optString("refer");
-        if (parentId != 0 && !Utils.isEmpty(ref))
-        {
-            refer = Comment.parse(ref);
-        }
-    }
+		String ref = json.optString("refer");
+		if (parentId != 0 && !Utils.isEmpty(ref))
+		{
+			refer = Comment.parse(ref);
+		}
+	}
 
-    public static Comment parse(String text)
-    {
-        try
-        {
-            return new Comment(new JSONObject(text));
-        } catch (JSONException e)
-        {
-            return null;
-        }
-    }
+	public static Comment parse(String text)
+	{
+		try
+		{
+			return new Comment(new JSONObject(text));
+		} catch (JSONException e)
+		{
+			return null;
+		}
+	}
 
-    public SpannableStringBuilder parseContent()
-    {
-        if (content.startsWith("回复"))
-        {
-            int index = content.indexOf("楼");
-            SpannableStringBuilder builder = new SpannableStringBuilder(content);
-            builder.setSpan(new ForegroundColorSpan(Color.parseColor("#FFBA1F")), 2, index + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            return builder;
-        } else
-        {
-            return new SpannableStringBuilder(content);
-        }
-    }
+	public SpannableStringBuilder parseContent()
+	{
+		if (content.startsWith("回复"))
+		{
+			int                    index   = content.indexOf("楼");
+			SpannableStringBuilder builder = new SpannableStringBuilder(content);
+			builder.setSpan(new ForegroundColorSpan(Color.parseColor("#FFBA1F")), 2, index + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			return builder;
+		} else
+		{
+			return new SpannableStringBuilder(content);
+		}
+	}
 
-    public int getId()
-    {
-        return id;
-    }
+	public int getId()
+	{
+		return id;
+	}
 
-    public String getContent()
-    {
-        return content;
-    }
+	public String getContent()
+	{
+		return content;
+	}
 
-    public int getParentId()
-    {
-        return parentId;
-    }
+	public int getParentId()
+	{
+		return parentId;
+	}
 
-    public boolean isLiked()
-    {
-        return liked;
-    }
+	public boolean isLiked()
+	{
+		return liked;
+	}
 
-    public int getLikeCount()
-    {
-        return likeCount;
-    }
+	public int getLikeCount()
+	{
+		return likeCount;
+	}
 
-    public int getFloor()
-    {
-        return floor;
-    }
+	public int getFloor()
+	{
+		return floor;
+	}
 
-    public long getCreated()
-    {
-        return created;
-    }
+	public long getCreated()
+	{
+		return created;
+	}
 
-    public User getUser()
-    {
-        return user;
-    }
+	public User getUser()
+	{
+		return user;
+	}
 
-    public Comment getRefer()
-    {
-        return refer;
-    }
+	public Comment getRefer()
+	{
+		return refer;
+	}
 
-    public String getTime()
-    {
-        return Utils.timeFormat(created, "MM-dd HH:mm");
-    }
+	public String getTime()
+	{
+		return Utils.timeFormat(created, "MM-dd HH:mm");
+	}
 
-    public void setId(int id)
-    {
-        this.id = id;
-    }
+	public void setId(int id)
+	{
+		this.id = id;
+	}
 
-    public void setContent(String content)
-    {
-        this.content = content;
-    }
+	public void setContent(String content)
+	{
+		this.content = content;
+	}
 
-    public void setParentId(int parentId)
-    {
-        this.parentId = parentId;
-    }
+	public void setParentId(int parentId)
+	{
+		this.parentId = parentId;
+	}
 
-    public void setLiked(boolean liked)
-    {
-        this.liked = liked;
-    }
+	public void setLiked(boolean liked)
+	{
+		this.liked = liked;
+	}
 
-    public void setLikeCount(int likeCount)
-    {
-        this.likeCount = likeCount;
-    }
+	public void setLikeCount(int likeCount)
+	{
+		this.likeCount = likeCount;
+	}
 
-    public void setFloor(int floor)
-    {
-        this.floor = floor;
-    }
+	public void setFloor(int floor)
+	{
+		this.floor = floor;
+	}
 
-    public void setCreated(long created)
-    {
-        this.created = created;
-    }
+	public void setCreated(long created)
+	{
+		this.created = created;
+	}
 
-    public void setUser(User user)
-    {
-        this.user = user;
-    }
+	public void setUser(User user)
+	{
+		this.user = user;
+	}
 
-    public void setRefer(Comment refer)
-    {
-        this.refer = refer;
-    }
+	public void setRefer(Comment refer)
+	{
+		this.refer = refer;
+	}
 
-    public void addLikeCount()
-    {
-        likeCount++;
-    }
+	public void addLikeCount()
+	{
+		likeCount++;
+	}
 
-    @Override
-    public int describeContents() { return 0; }
+	@Override
+	public int describeContents()
+	{
+		return 0;
+	}
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
-        dest.writeInt(this.id);
-        dest.writeString(this.content);
-        dest.writeInt(this.parentId);
-        dest.writeByte(this.liked ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.likeCount);
-        dest.writeInt(this.floor);
-        dest.writeLong(this.created);
-        dest.writeParcelable(this.user, flags);
-        dest.writeParcelable(this.refer, flags);
-    }
+	@Override
+	public void writeToParcel(Parcel dest, int flags)
+	{
+		dest.writeInt(this.id);
+		dest.writeString(this.content);
+		dest.writeInt(this.parentId);
+		dest.writeByte(this.liked ? (byte) 1 : (byte) 0);
+		dest.writeInt(this.likeCount);
+		dest.writeInt(this.floor);
+		dest.writeLong(this.created);
+		dest.writeParcelable(this.user, flags);
+		dest.writeParcelable(this.refer, flags);
+	}
 
-    protected Comment(Parcel in)
-    {
-        this.id = in.readInt();
-        this.content = in.readString();
-        this.parentId = in.readInt();
-        this.liked = in.readByte() != 0;
-        this.likeCount = in.readInt();
-        this.floor = in.readInt();
-        this.created = in.readLong();
-        this.user = in.readParcelable(User.class.getClassLoader());
-        this.refer = in.readParcelable(Comment.class.getClassLoader());
-    }
+	protected Comment(Parcel in)
+	{
+		this.id = in.readInt();
+		this.content = in.readString();
+		this.parentId = in.readInt();
+		this.liked = in.readByte() != 0;
+		this.likeCount = in.readInt();
+		this.floor = in.readInt();
+		this.created = in.readLong();
+		this.user = in.readParcelable(User.class.getClassLoader());
+		this.refer = in.readParcelable(Comment.class.getClassLoader());
+	}
 
-    public static final Creator<Comment> CREATOR = new Creator<Comment>()
-    {
-        @Override
-        public Comment createFromParcel(Parcel source) {return new Comment(source);}
+	public static final Creator<Comment> CREATOR = new Creator<Comment>()
+	{
+		@Override
+		public Comment createFromParcel(Parcel source)
+		{
+			return new Comment(source);
+		}
 
-        @Override
-        public Comment[] newArray(int size) {return new Comment[size];}
-    };
+		@Override
+		public Comment[] newArray(int size)
+		{
+			return new Comment[size];
+		}
+	};
 }

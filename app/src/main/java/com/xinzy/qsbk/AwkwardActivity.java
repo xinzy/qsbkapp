@@ -18,7 +18,7 @@ public class AwkwardActivity extends AppCompatActivity
 {
 
 	private SectionsPagerAdapter mSectionsPagerAdapter;
-	private ViewPager mViewPager;
+	private ViewPager            mViewPager;
 
 	public static void start(Context context)
 	{

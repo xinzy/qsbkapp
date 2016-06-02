@@ -12,11 +12,11 @@ import java.util.List;
 public interface IContentView extends IBaseView<IContentPresenter>
 {
 
-    void showLoading(boolean isShow);
+	void showLoading(boolean isShow);
 
-    void loadResult(boolean success);
+	void loadResult(boolean success);
 
-    void showDataAfterLoad(List<Content> contents, boolean refresh);
+	void showDataAfterLoad(List<Content> contents, boolean refresh);
 
-    String getType();
+	String getType();
 }

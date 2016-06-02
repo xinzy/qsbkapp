@@ -2,14 +2,15 @@ package com.xinzy.qsbk.logic.content.view;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
 import com.xinzy.qsbk.R;
+import com.xinzy.qsbk.common.media.CircleTransformation;
 import com.xinzy.qsbk.common.model.Comment;
 import com.xinzy.qsbk.common.model.User;
 import com.xinzy.qsbk.common.ui.ItemView;
@@ -20,135 +21,138 @@ import com.xinzy.qsbk.common.widget.PraiseView;
  */
 public class DetailItemView extends LinearLayout implements ItemView, View.OnClickListener
 {
-    private SimpleDraweeView mAvatarView;
-    private TextView         usernameTextView;
-    private TextView         floorTextView;
-    private TextView         contentTextView;
-    private TextView         timeTextView;
-    private TextView         praiseTextView;
+	private Context mContext;
 
-    private Comment          mComment;
-    private ItemViewListener mItemViewListener;
+	private ImageView mAvatarView;
+	private TextView  usernameTextView;
+	private TextView  floorTextView;
+	private TextView  contentTextView;
+	private TextView  timeTextView;
+	private TextView  praiseTextView;
 
-    public DetailItemView(Context context)
-    {
-        super(context);
-        init();
-    }
+	private Comment          mComment;
+	private ItemViewListener mItemViewListener;
 
-    public DetailItemView(Context context, AttributeSet attrs)
-    {
-        super(context, attrs);
-        init();
-    }
+	public DetailItemView(Context context)
+	{
+		super(context);
+		init(context);
+	}
 
-    public DetailItemView(Context context, AttributeSet attrs, int defStyleAttr)
-    {
-        super(context, attrs, defStyleAttr);
-        init();
-    }
+	public DetailItemView(Context context, AttributeSet attrs)
+	{
+		super(context, attrs);
+		init(context);
+	}
 
-    private void init()
-    {
-    }
+	public DetailItemView(Context context, AttributeSet attrs, int defStyleAttr)
+	{
+		super(context, attrs, defStyleAttr);
+		init(context);
+	}
 
-    public void setItemViewListener(ItemViewListener mItemViewListener)
-    {
-        this.mItemViewListener = mItemViewListener;
-    }
+	private void init(Context context)
+	{
+		mContext = context;
+	}
 
-    @Override
-    public void onInit()
-    {
-        mAvatarView = (SimpleDraweeView) findViewById(R.id.detail_avatar_view);
-        usernameTextView = (TextView) findViewById(R.id.detail_username_text);
-        floorTextView = (TextView) findViewById(R.id.detail_floor_text);
-        contentTextView = (TextView) findViewById(R.id.detail_content_text);
-        timeTextView = (TextView) findViewById(R.id.detail_time_text);
-        praiseTextView = (TextView) findViewById(R.id.detail_praise_text);
+	public void setItemViewListener(ItemViewListener mItemViewListener)
+	{
+		this.mItemViewListener = mItemViewListener;
+	}
 
-        mAvatarView.setOnClickListener(this);
-        contentTextView.setOnClickListener(this);
-        praiseTextView.setOnClickListener(this);
-        setOnClickListener(this);
-    }
+	@Override
+	public void onInit()
+	{
+		mAvatarView = (ImageView) findViewById(R.id.detail_avatar_view);
+		usernameTextView = (TextView) findViewById(R.id.detail_username_text);
+		floorTextView = (TextView) findViewById(R.id.detail_floor_text);
+		contentTextView = (TextView) findViewById(R.id.detail_content_text);
+		timeTextView = (TextView) findViewById(R.id.detail_time_text);
+		praiseTextView = (TextView) findViewById(R.id.detail_praise_text);
 
-    @Override
-    public void onSetData(Object object, int position)
-    {
-        mComment = (Comment) object;
-        final User user = mComment.getUser();
+		mAvatarView.setOnClickListener(this);
+		contentTextView.setOnClickListener(this);
+		praiseTextView.setOnClickListener(this);
+		setOnClickListener(this);
+	}
 
-        if (user != null)
-        {
-            mAvatarView.setImageURI(Uri.parse(user.getAvatar()));
-        }
-        usernameTextView.setText(user == null ? "匿名用户" : user.getUsername());
-        floorTextView.setText(mComment.getFloor() + "");
-        timeTextView.setText(mComment.getTime());
-        praiseTextView.setText(mComment.getLikeCount() > 0 ? mComment.getLikeCount() + "" : "");
-        praiseTextView.setSelected(mComment.isLiked());
-        contentTextView.setText(mComment.parseContent());
-    }
+	@Override
+	public void onSetData(Object object, int position)
+	{
+		mComment = (Comment) object;
+		final User user = mComment.getUser();
 
-    @Override
-    public void onClose()
-    {
+		if (user != null)
+		{
+			Glide.with(getContext()).load(user.getAvatar()).bitmapTransform(new CircleTransformation(mContext)).error(R.drawable.default_avatar).into(mAvatarView);
+		}
+		usernameTextView.setText(user == null ? "匿名用户" : user.getUsername());
+		floorTextView.setText(mComment.getFloor() + "");
+		timeTextView.setText(mComment.getTime());
+		praiseTextView.setText(mComment.getLikeCount() > 0 ? mComment.getLikeCount() + "" : "");
+		praiseTextView.setSelected(mComment.isLiked());
+		contentTextView.setText(mComment.parseContent());
+	}
 
-    }
+	@Override
+	public void onClose()
+	{
 
-    @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
-        case R.id.detail_avatar_view:
-            if (mItemViewListener != null)
-            {
-                mItemViewListener.onAvatarClick(this, mComment);
-            }
-            break;
+	}
 
-        case R.id.detail_content_text:
-            if (mItemViewListener != null)
-            {
-                mItemViewListener.onContentClick(this, mComment);
-            }
-            break;
+	@Override
+	public void onClick(View v)
+	{
+		switch (v.getId())
+		{
+		case R.id.detail_avatar_view:
+			if (mItemViewListener != null)
+			{
+				mItemViewListener.onAvatarClick(this, mComment);
+			}
+			break;
 
-        case R.id.detail_praise_text:
-            if (mItemViewListener != null)
-            {
-                mItemViewListener.onPraiseClick(this, mComment);
-            }
-            break;
+		case R.id.detail_content_text:
+			if (mItemViewListener != null)
+			{
+				mItemViewListener.onContentClick(this, mComment);
+			}
+			break;
 
-        default:
-            if (mItemViewListener != null)
-            {
-                mItemViewListener.onItemClick(this, mComment);
-            }
-            break;
-        }
-    }
+		case R.id.detail_praise_text:
+			if (mItemViewListener != null)
+			{
+				mItemViewListener.onPraiseClick(this, mComment);
+			}
+			break;
 
-    public void showPraise()
-    {
-        praiseTextView.setSelected(true);
-        praiseTextView.setText(mComment.getLikeCount() + "");
-        PraiseView view = new PraiseView(getContext());
-        view.setText("+1", Color.RED, 14);
-        view.show(praiseTextView);
-    }
+		default:
+			if (mItemViewListener != null)
+			{
+				mItemViewListener.onItemClick(this, mComment);
+			}
+			break;
+		}
+	}
 
-    public interface ItemViewListener
-    {
-        void onAvatarClick(DetailItemView itemView, Comment comment);
+	public void showPraise()
+	{
+		praiseTextView.setSelected(true);
+		praiseTextView.setText(mComment.getLikeCount() + "");
+		PraiseView view = new PraiseView(getContext());
+		view.setText("+1", Color.RED, 14);
+		view.show(praiseTextView);
+	}
 
-        void onItemClick(DetailItemView itemView, Comment comment);
+	public interface ItemViewListener
+	{
+		void onAvatarClick(DetailItemView itemView, Comment comment);
 
-        void onContentClick(DetailItemView itemView, Comment comment);
+		void onItemClick(DetailItemView itemView, Comment comment);
 
-        void onPraiseClick(DetailItemView view, Comment comment);
-    }
+		void onContentClick(DetailItemView itemView, Comment comment);
+
+		void onPraiseClick(DetailItemView view, Comment comment);
+	}
 }

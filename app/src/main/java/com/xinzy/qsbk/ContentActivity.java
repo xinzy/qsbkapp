@@ -18,45 +18,45 @@ import com.xinzy.qsbk.logic.content.presenter.IDetailPresenter;
 public class ContentActivity extends AppCompatActivity
 {
 
-    private static final String KEY_CONTENT = "CONTENT";
-    private static final String KEY_POSITION = "POSITION";
+	private static final String KEY_CONTENT  = "CONTENT";
+	private static final String KEY_POSITION = "POSITION";
 
-    private IDetailPresenter mDetailPresenter;
-    private Content          mContent;
+	private IDetailPresenter mDetailPresenter;
+	private Content          mContent;
 
-    public static void start(Activity activity, View view, Content content)
-    {
-        ActivityOptionsCompat compat  = ActivityOptionsCompat.makeScaleUpAnimation(view, view.getWidth() / 2, view.getHeight() / 2, 0, 0);
-        Intent                starter = new Intent(activity, ContentActivity.class);
-        starter.putExtra(KEY_CONTENT, content);
-        ActivityCompat.startActivity(activity, starter, compat.toBundle());
-    }
+	public static void start(Activity activity, View view, Content content)
+	{
+		ActivityOptionsCompat compat  = ActivityOptionsCompat.makeScaleUpAnimation(view, view.getWidth() / 2, view.getHeight() / 2, 0, 0);
+		Intent                starter = new Intent(activity, ContentActivity.class);
+		starter.putExtra(KEY_CONTENT, content);
+		ActivityCompat.startActivity(activity, starter, compat.toBundle());
+	}
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_content);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+	@Override
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_content);
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
-        mContent = getIntent().getParcelableExtra(KEY_CONTENT);
-        DetailFragment fragment = DetailFragment.newInstance(mContent);
-        mDetailPresenter = new DetailPresenter(fragment);
+		mContent = getIntent().getParcelableExtra(KEY_CONTENT);
+		DetailFragment fragment = DetailFragment.newInstance(mContent);
+		mDetailPresenter = new DetailPresenter(fragment);
 
-        getSupportFragmentManager().beginTransaction().add(R.id.content, fragment).commit();
-    }
+		getSupportFragmentManager().beginTransaction().add(R.id.content, fragment).commit();
+	}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-        case android.R.id.home:
-            ActivityCompat.finishAfterTransition(this);
-            return true;
-        }
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+		case android.R.id.home:
+			ActivityCompat.finishAfterTransition(this);
+			return true;
+		}
 
-        return super.onOptionsItemSelected(item);
-    }
+		return super.onOptionsItemSelected(item);
+	}
 }

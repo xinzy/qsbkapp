@@ -64,8 +64,8 @@ public class DetailPresenter implements IDetailPresenter
 				JSONObject rootJson = new JSONObject(response.body().string());
 				if (rootJson.optInt("err", -1) == 0)
 				{
-					JSONArray     array    = rootJson.optJSONArray("items");
-					int           length;
+					JSONArray array = rootJson.optJSONArray("items");
+					int       length;
 					if (array != null && (length = array.length()) > 0)
 					{
 						List<Comment> comments = new ArrayList<>(length);

@@ -27,6 +27,6 @@ dependencies {
     compile rootProject.ext.libSupportAppCompat
     compile rootProject.ext.libSupportV4
     compile rootProject.ext.libSupportDesign
-    compile rootProject.ext.libFresco
+    compile rootProject.ext.libGlide
     compile rootProject.ext.libEventBus
 }

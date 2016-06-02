@@ -2,7 +2,6 @@ package com.xinzy.qsbk;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Animatable;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -13,19 +12,12 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
-import com.facebook.drawee.controller.BaseControllerListener;
-import com.facebook.imagepipeline.image.ImageInfo;
-import com.xinzy.qsbk.common.widget.PhotoDraweeView;
-import com.xinzy.qsbk.common.widget.photo.OnViewTapListener;
 
-public class ImageActivity extends AppCompatActivity implements OnViewTapListener
+public class ImageActivity extends AppCompatActivity
 {
 	private static final String KEY_IMAGE_URL = "IMAGE_URL";
 
-	private PhotoDraweeView mImageView;
-	private Toolbar         mToolbar;
+	private Toolbar mToolbar;
 
 	public static void start(Activity activity, View view, String url)
 	{
@@ -57,29 +49,6 @@ public class ImageActivity extends AppCompatActivity implements OnViewTapListene
 			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
 
-		mImageView = (PhotoDraweeView) findViewById(R.id.scale_image_view);
-		assert mImageView != null;
-		mImageView.setOnViewTapListener(this);
-
-		PipelineDraweeControllerBuilder controller = Fresco.newDraweeControllerBuilder();
-		controller.setUri(imgUrl).setOldController(mImageView.getController()).setControllerListener(new BaseControllerListener<ImageInfo>()
-		{
-			@Override
-			public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable)
-			{
-				super.onFinalImageSet(id, imageInfo, animatable);
-				if (imageInfo != null)
-				{
-					mImageView.update(imageInfo.getWidth(), imageInfo.getHeight());
-				}
-			}
-		});
-		mImageView.setController(controller.build());
-	}
-
-	@Override
-	public void onViewTap(View view, float x, float y)
-	{
 	}
 
 	@Override
