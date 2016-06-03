@@ -5,7 +5,9 @@ import android.content.Context;
 import android.graphics.Point;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -61,5 +63,25 @@ public class Utils
 			attrs.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
 			activity.getWindow().setAttributes(attrs);
 		}
+	}
+
+	private static int IMG_MAX_WIDTH;
+	public static final void adjustImageView(ImageView view, int width, int height)
+	{
+		if (IMG_MAX_WIDTH == 0)
+		{
+			IMG_MAX_WIDTH = getScreenSize(view.getContext()).x - dp2px(view.getContext(), 32);
+		}
+		ViewGroup.LayoutParams lp = view.getLayoutParams();
+		if (width > IMG_MAX_WIDTH)
+		{
+			lp.width = IMG_MAX_WIDTH;
+			lp.height = height * IMG_MAX_WIDTH / width;
+		} else
+		{
+			lp.width = width;
+			lp.height = height;
+		}
+		view.setLayoutParams(lp);
 	}
 }

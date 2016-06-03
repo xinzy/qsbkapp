@@ -3,7 +3,6 @@ package com.xinzy.qsbk.logic.awkward.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,7 +36,6 @@ public class AwkwardItemView extends LinearLayout implements ItemView, View.OnCl
 	private Context mContext;
 	private int     mPosition;
 	private Awkward mAwkward;
-	private int     contentImageViewWidth;
 
 
 	public AwkwardItemView(Context context)
@@ -61,7 +59,6 @@ public class AwkwardItemView extends LinearLayout implements ItemView, View.OnCl
 	private void init(Context context)
 	{
 		mContext = context;
-		contentImageViewWidth = Utils.getScreenSize(mContext).x - Utils.dp2px(mContext, 32);
 	}
 
 	@Override
@@ -99,7 +96,8 @@ public class AwkwardItemView extends LinearLayout implements ItemView, View.OnCl
 		usernameTextView.setText(user != null ? user.getUsername() : getResources().getString(R.string.anonymous));
 		if (user != null)
 		{
-			Glide.with(getContext()).load(user.getAvatar()).bitmapTransform(new CircleTransformation(mContext)).error(R.drawable.default_avatar).into(mAvatarImageView);
+			Glide.with(getContext()).load(user.getAvatar()).bitmapTransform(new CircleTransformation(mContext))
+					.placeholder(R.drawable.default_avatar).error(R.drawable.default_avatar).into(mAvatarImageView);
 		}
 
 		contentTextView.setText(awkward.getContent());
@@ -124,15 +122,15 @@ public class AwkwardItemView extends LinearLayout implements ItemView, View.OnCl
 			if (image != null)
 			{
 				contentImageView.setVisibility(View.VISIBLE);
-				ViewGroup.LayoutParams lp = contentImageView.getLayoutParams();
-				lp.height = image.getHeight() * contentImageViewWidth / image.getWidth();
-				contentImageView.setLayoutParams(lp);
+				Utils.adjustImageView(contentImageView, image.getWidth(), image.getHeight());
 				if (image.isGif())
 				{
-					Glide.with(getContext()).load(image.getUrl()).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(contentImageView);
+					Glide.with(getContext()).load(image.getUrl()).asGif().placeholder(R.drawable.image_loading_placeholder)
+							.error(R.drawable.image_loading_failure).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(contentImageView);
 				} else
 				{
-					Glide.with(getContext()).load(image.getUrl()).into(contentImageView);
+					Glide.with(getContext()).load(image.getUrl()).placeholder(R.drawable.image_loading_placeholder)
+							.error(R.drawable.image_loading_failure).into(contentImageView);
 				}
 			}
 		} else if (mediaType == Awkward.TYPE_VIDEO)
@@ -142,10 +140,9 @@ public class AwkwardItemView extends LinearLayout implements ItemView, View.OnCl
 			{
 				videoTagImageView.setVisibility(View.VISIBLE);
 				contentImageView.setVisibility(View.VISIBLE);
-				ViewGroup.LayoutParams lp = contentImageView.getLayoutParams();
-				lp.height = video.getHeight() * contentImageViewWidth / video.getWidth();
-				contentImageView.setLayoutParams(lp);
-				Glide.with(getContext()).load(video.getCover()).into(contentImageView);
+				Utils.adjustImageView(contentImageView, video.getWidth(), video.getHeight());
+				Glide.with(getContext()).load(video.getCover()).placeholder(R.drawable.image_loading_placeholder)
+						.error(R.drawable.image_loading_failure).into(contentImageView);
 			}
 		}
 	}
@@ -158,7 +155,6 @@ public class AwkwardItemView extends LinearLayout implements ItemView, View.OnCl
 	@Override
 	public void onClose()
 	{
-
 	}
 
 	@Override

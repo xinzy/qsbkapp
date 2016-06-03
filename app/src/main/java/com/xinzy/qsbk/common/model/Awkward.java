@@ -75,6 +75,7 @@ public class Awkward implements Parcelable
 		Awkward    item = new Awkward();
 		JSONObject data = json.optJSONObject("group");
 
+		item.author = User.parse(data.optJSONObject("user"));
 		item.id = data.optInt("id");
 		item.content = data.optString("content");
 		item.favors = data.optInt("favorite_count");
@@ -567,8 +568,8 @@ public class Awkward implements Parcelable
 			img.width = json.optInt("width");
 			img.height = json.optInt("height");
 			JSONArray array = json.optJSONArray("url_list");
-			if (array != null && array.length() > 1)
-				img.url = array.optJSONObject(1).optString("url");
+			if (array != null && array.length() > 0)
+				img.url = array.optJSONObject(0).optString("url");
 
 			return img;
 		}
@@ -794,6 +795,17 @@ public class Awkward implements Parcelable
 			this.userid = in.readInt();
 			this.username = in.readString();
 			this.avatar = in.readString();
+		}
+
+		public static User parse(JSONObject json)
+		{
+			if (json == null) return null;
+			User user = new User();
+			user.avatar = json.optString("avatar_url");
+			user.userid = json.optInt("user_id");
+			user.username = json.optString("name");
+
+			return user;
 		}
 
 		public int getUserid()

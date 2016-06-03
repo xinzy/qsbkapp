@@ -10,7 +10,7 @@
                                                 android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="8dp"
         android:paddingTop="8dp">
@@ -56,11 +56,9 @@
         android:textSize="14sp"
         tools:text="微信上说一个米国黑客扬言要黑一个中国网站，结果他刚打开网页，电脑就被安装了四五个插件和被强制捆绑了首页导航…"/>
 
-
     <FrameLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
 
         <ImageView
             android:id="@+id/content_img"

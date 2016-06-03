@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -103,7 +102,8 @@ public class ContentDetailView extends LinearLayout implements View.OnClickListe
 		usernameTextView.setText(user != null ? user.getUsername() : getResources().getString(R.string.anonymous));
 		if (user != null)
 		{
-			Glide.with(getContext()).load(user.getAvatar()).bitmapTransform(new CircleTransformation(mContext)).error(R.drawable.default_avatar).into(mAvatarImageView);
+			Glide.with(getContext()).load(user.getAvatar()).bitmapTransform(new CircleTransformation(mContext))
+					.placeholder(R.drawable.default_avatar).error(R.drawable.default_avatar).into(mAvatarImageView);
 		}
 
 		if (content.getType() == Content.Type.Hot)
@@ -135,7 +135,6 @@ public class ContentDetailView extends LinearLayout implements View.OnClickListe
 
 		contentVideoTagView.setVisibility(View.GONE);
 		contentImageView.setVisibility(View.GONE);
-		final int contentImageViewWidth = Utils.getScreenSize(mContext).x - Utils.dp2px(mContext, 32);
 		if (content.getFormat() == Content.Format.Image)
 		{
 			ImageSize imageSize = content.getMediumSize();
@@ -148,10 +147,9 @@ public class ContentDetailView extends LinearLayout implements View.OnClickListe
 			if (imageSize != null && imageSize.getHeight() > 0)
 			{
 				contentImageView.setVisibility(View.VISIBLE);
-				ViewGroup.LayoutParams lp = contentImageView.getLayoutParams();
-				lp.height = imageSize.getHeight() * contentImageViewWidth / imageSize.getWidth();
-				contentImageView.setLayoutParams(lp);
-				Glide.with(getContext()).load(imgurl).into(contentImageView);
+				Utils.adjustImageView(contentImageView, imageSize.getWidth(), imageSize.getHeight());
+				Glide.with(getContext()).load(imgurl).placeholder(R.drawable.image_loading_placeholder)
+						.error(R.drawable.image_loading_failure).into(contentImageView);
 			}
 		} else if (content.getFormat() == Content.Format.Video)
 		{
@@ -159,10 +157,9 @@ public class ContentDetailView extends LinearLayout implements View.OnClickListe
 			{
 				contentImageView.setVisibility(View.VISIBLE);
 				contentVideoTagView.setVisibility(View.VISIBLE);
-				ViewGroup.LayoutParams lp = contentImageView.getLayoutParams();
-				lp.height = content.getPicSize().getHeight() * contentImageViewWidth / content.getPicSize().getWidth();
-				contentImageView.setLayoutParams(lp);
-				Glide.with(getContext()).load(content.getPicUrl()).into(contentImageView);
+				Utils.adjustImageView(contentImageView, content.getPicSize().getWidth(), content.getPicSize().getHeight());
+				Glide.with(getContext()).load(content.getPicUrl()).placeholder(R.drawable.image_loading_placeholder)
+						.error(R.drawable.image_loading_failure).into(contentImageView);
 			}
 		}
 	}

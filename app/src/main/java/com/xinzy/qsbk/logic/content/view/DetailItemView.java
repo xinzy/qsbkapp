@@ -85,7 +85,8 @@ public class DetailItemView extends LinearLayout implements ItemView, View.OnCli
 
 		if (user != null)
 		{
-			Glide.with(getContext()).load(user.getAvatar()).bitmapTransform(new CircleTransformation(mContext)).error(R.drawable.default_avatar).into(mAvatarView);
+			Glide.with(getContext()).load(user.getAvatar()).bitmapTransform(new CircleTransformation(mContext))
+					.placeholder(R.drawable.default_avatar).error(R.drawable.default_avatar).into(mAvatarView);
 		}
 		usernameTextView.setText(user == null ? "匿名用户" : user.getUsername());
 		floorTextView.setText(mComment.getFloor() + "");
